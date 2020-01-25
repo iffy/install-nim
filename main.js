@@ -16,13 +16,15 @@ async function installWithChoosenim(nimversion) {
   await exec.exec('choosenim', [nimversion]);
 }
 
-try {
+async function main() {
   const nimversion = core.getInput('nimversion');
   if (process.platform === 'win32') {
     await installOnWindows(nimversion);
   } else {
     await installWithChoosenim(nimversion);
   }
-} catch (error) {
-  core.setFailed(error.message);
 }
+
+main().catch((err) => {
+  core.setFailed(err.message);
+})
