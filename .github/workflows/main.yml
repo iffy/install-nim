@@ -1,0 +1,16 @@
+on: [push]
+
+jobs:
+  nimversion:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        nimversion: [stable, devel]
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+    steps:
+    - uses: actions/checkout@v1
+    - uses: iffy/install-nim@master
+      with:
+        nimversion: ${{ matrix.nimversion }}
+    - run: nim -v
+    - run: nimble -v

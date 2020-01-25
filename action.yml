@@ -1,0 +1,9 @@
+name: Installs Nim (iffy)
+description: Installs Nim and adds nim/nimble to the PATH
+author: iffy
+inputs:
+  nimversion:
+    default: stable
+runs:
+  using: node12
+  main: main.js
