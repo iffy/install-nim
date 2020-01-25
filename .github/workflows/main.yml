@@ -9,7 +9,7 @@ jobs:
         os: [ubuntu-latest, macOS-latest, windows-latest]
     steps:
     - uses: actions/checkout@v1
-    - uses: iffy/install-nim@${{ github.ref }}
+    - uses: ${{ "iffy/install-nim@" + github.ref }}
       with:
         nimversion: ${{ matrix.nimversion }}
     - run: nim -v
