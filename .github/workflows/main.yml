@@ -1,7 +1,7 @@
 on: [push]
 
 env:
-  VERSION_TO_TEST: '${{ "iffy/install-nim@" + github.ref }}'
+  VERSION_TO_TEST: '{{ "iffy/install-nim@" + github.ref }}'
 
 jobs:
   nimversion:
