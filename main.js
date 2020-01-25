@@ -5,7 +5,7 @@ const io = require('@actions/io');
 const tc = require('@actions/tool-cache');
 
 async function installOnWindows(nimversion) {
-
+  await 1;
 }
 
 async function installWithChoosenim(nimversion) {
