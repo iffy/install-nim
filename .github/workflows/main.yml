@@ -12,7 +12,7 @@ jobs:
         os: [ubuntu-latest, macOS-latest, windows-latest]
     steps:
     - uses: actions/checkout@v1
-    - uses: $VERSION_TO_TEST
+    - uses: "$VERSION_TO_TEST"
       with:
         nimversion: ${{ matrix.nimversion }}
     - run: nim -v
