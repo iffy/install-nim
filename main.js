@@ -40,7 +40,7 @@ async function installWithChoosenim(nimversion) {
 async function main() {
   const nimversion = core.getInput('nimversion');
   if (process.platform === 'win32') {
-    await installOnWindows(nimversion);
+    await installWithChoosenim(nimversion);
   } else {
     await installWithChoosenim(nimversion);
   }
