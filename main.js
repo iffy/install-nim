@@ -3,6 +3,7 @@ const github = require('@actions/github');
 const exec = require('@actions/exec');
 const io = require('@actions/io');
 const tc = require('@actions/tool-cache');
+const os = require('os');
 
 async function installOnWindows(nimversion) {
   // Install mingw
@@ -31,7 +32,7 @@ async function installWithChoosenim(nimversion) {
   const choosenim_path = await tc.downloadTool('https://nim-lang.org/choosenim/init.sh');
   let env = Object.assign({}, process.env, {'CHOOSENIM_NO_ANALYTICS': '1'});
   await exec.exec('sh', [choosenim_path, '-y'], {env});
-  const newpath = process.env.HOME + '/.nimble/bin';
+  const newpath = os.homedir() + '/.nimble/bin';
   core.addPath(newpath);
   env = Object.assign({}, env, {'PATH': newpath + ':' + env.PATH});
   await exec.exec('choosenim', [nimversion], {env});
