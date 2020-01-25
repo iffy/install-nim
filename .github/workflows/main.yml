@@ -1,8 +1,5 @@
 on: [push]
 
-env:
-  VERSION_TO_TEST: '{{ "iffy/install-nim@" + github.ref }}'
-
 jobs:
   nimversion:
     runs-on: ${{ matrix.os }}
@@ -12,7 +9,7 @@ jobs:
         os: [ubuntu-latest, macOS-latest, windows-latest]
     steps:
     - uses: actions/checkout@v1
-    - uses: ${{ VERSION_TO_TEST }}
+    - uses: iffy/install-nim@master
       with:
         nimversion: ${{ matrix.nimversion }}
     - run: nim -v
