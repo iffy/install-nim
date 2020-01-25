@@ -24,6 +24,7 @@ async function main() {
   }
 }
 
+
 main().catch((err) => {
   core.setFailed(err.message);
 })
