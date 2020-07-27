@@ -23,14 +23,14 @@ async function installWithChoosenim(nimversion) {
   await exec.exec('sh', [choosenim_path, '-y'], {env});
 
   // Add nimble/bin to PATH
-  const newpath = os.homedir() + '/.nimble/bin';
-  core.addPath(newpath);
-  env = Object.assign({}, env, {'PATH': newpath + ':' + env.PATH});
+  const nimble_bin_path = os.homedir() + '/.nimble/bin';
+  core.addPath(nimble_bin_path);
+  env = Object.assign({}, env, {'PATH': nimble_bin_path + ':' + env.PATH});
 
   // Workaround for choosenim issue #199
-  if (process.env.TEMP) {
+  if (os.platform() === "win32") {
     // On Windows, delete all the dlls
-    walkDir(process.env.TEMP, filepath => {
+    walkDir(nimble_bin_path, filepath => {
       if (filepath.endsWith(".dll")) {
         fs.unlinkSync(filepath);
       }
