@@ -8,7 +8,6 @@ async function installWithChoosenim(nimversion) {
   const choosenim_path = await tc.downloadTool('https://nim-lang.org/choosenim/init.sh');
   let env = Object.assign({}, process.env, {
     'CHOOSENIM_NO_ANALYTICS': '1',
-    'CHOOSENIM_CHOOSE_VERSION': nimversion,
   });
   await exec.exec('sh', [choosenim_path, '-y'], {env});
 
@@ -18,7 +17,7 @@ async function installWithChoosenim(nimversion) {
   env = Object.assign({}, env, {'PATH': newpath + ':' + env.PATH});
 
   // Run choosenim to install a version of nim
-  await exec.exec('choosenim', [nimversion], {env});
+  await exec.exec('choosenim', [nimversion, '--firstInstall'], {env});
 }
 
 async function main() {
