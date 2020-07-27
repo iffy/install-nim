@@ -2,7 +2,8 @@ const core = require('@actions/core');
 const exec = require('@actions/exec');
 const tc = require('@actions/tool-cache');
 const os = require('os');
-const fs = require('fs')
+const fs = require('fs');
+const path = require('path');
 
 function walkDir(dir, callback) {
   fs.readdirSync(dir).forEach( f => {
