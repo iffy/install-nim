@@ -6,7 +6,10 @@ const os = require('os');
 async function installWithChoosenim(nimversion) {
   // Install choosenim
   const choosenim_path = await tc.downloadTool('https://nim-lang.org/choosenim/init.sh');
-  let env = Object.assign({}, process.env, {'CHOOSENIM_NO_ANALYTICS': '1'});
+  let env = Object.assign({}, process.env, {
+    'CHOOSENIM_NO_ANALYTICS': '1',
+    'CHOOSENIM_CHOOSE_VERSION': nimversion,
+  });
   await exec.exec('sh', [choosenim_path, '-y'], {env});
 
   // Add nimble/bin to PATH
