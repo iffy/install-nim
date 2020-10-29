@@ -1,3 +1,5 @@
+**HEY:** Consider using https://github.com/alaviss/setup-nim which installs from pre-built nightlies instead of rebuilding with choosenim.
+
 # install-nim
 Github Action to install Nim
 
