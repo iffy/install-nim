@@ -202,15 +202,15 @@ install_nightly() {
 install_choosenim() {
   target="$1"
   echo "Installing via choosenim for: $target"
+  export CHOOSENIM_NO_ANALYTICS=1
+  curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s -- -y
+  add-path "$HOME/.nimble/bin"
+  add-path "$(abspath "$HOME/.nimble/bin")"
   version=$(choosenim versions --noColor | egrep -o '[0-9.]+' | egrep "^$target" | sort --version-sort | tail -n 1)
   if [ -z "$version" ]; then
     version="$target"
   fi
   echo "Guessing version to install: $version"
-  export CHOOSENIM_NO_ANALYTICS=1
-  curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s -- -y
-  add-path "$HOME/.nimble/bin"
-  add-path "$(abspath "$HOME/.nimble/bin")"
   choosenim "$version"
 }
 

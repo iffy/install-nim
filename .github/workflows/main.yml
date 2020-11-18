@@ -15,7 +15,7 @@ jobs:
       - uses: ./
       - run: nim -v
       - run: nimble -v
-  specific-versions:
+  specific:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
