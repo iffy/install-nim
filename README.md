@@ -7,7 +7,7 @@ Put the following in `.github/workflows/tests.yml`
 ```yaml
 steps:
   - uses: actions/checkout@v2
-  - uses: iffy/install-nim@v2
+  - uses: iffy/install-nim@v3
   - run: nimble install -y
   - run: nimble test
 ```
@@ -21,19 +21,19 @@ jobs:
     strategy:
       matrix:
         version:
-        - stable
-        - devel
-        - 1.4
-        - 1.2
-        - 1.0
-        - git:bbe49a14ae827b6474d692042406716a3b3dd71f
+          - stable
+          - devel
+          - 1.4.0
+          - 1.2.8
+          - 1.0.10
+          - git:bbe49a14ae827b6474d692042406716a3b3dd71f
         os:
-        - ubuntu-latest
-        - macOS-latest
-        - windows-latest
+          - ubuntu-latest
+          - macOS-latest
+          - windows-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: iffy/install-nim@v1.1
+    - uses: iffy/install-nim@v3
       with:
         nimversion: ${{ matrix.version }}
     - name: Test
@@ -45,11 +45,14 @@ jobs:
 
 ## Implementation
 
-This attempts to use the fastest method for installing Nim for the specified version.  For most cases [choosenim](https://github.com/dom96/choosenim/) is used.  For macOS, a nightly binary is sometimes used.
+By default, this action uses [choosenim](https://github.com/dom96/choosenim/) to install Nim.
 
 You can also explicitly request a particular build method by prefixing the version with a tag (e.g. `git:` as above).  See [.github/workflows/main.yml](.github/workflows/main.yml) for examples.
 
 
 ## Alternatives
 
-- https://github.com/alaviss/setup-nim 
+These other GitHub actions might suit your needs better (they're worth checking out):
+
+- https://github.com/alaviss/setup-nim
+- https://github.com/jiro4989/setup-nim-action

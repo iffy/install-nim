@@ -11,9 +11,7 @@ format:
   Using choosenim:
 
     $0 stable
-    $0 1.4.0  # version 1.4.0
-    $0 1.4    # latest version 1.4.x
-    $0 1      # latest version 1.x.x
+    $0 1.4.0
   
   From a prebuilt nightly binary:
   
@@ -204,15 +202,10 @@ install_choosenim() {
   target="$1"
   echo "Installing via choosenim for: $target"
   export CHOOSENIM_NO_ANALYTICS=1
+  export CHOOSENIM_CHOOSE_VERSION="$target"
   curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s -- -y
   add-path "$HOME/.nimble/bin"
   add-path "$(abspath "$HOME/.nimble/bin")"
-  version=$(choosenim versions --noColor | egrep -o '[0-9.]+' | egrep "^$target" | sort --version-sort | tail -n 1)
-  if [ -z "$version" ]; then
-    version="$target"
-  fi
-  echo "Guessing version to install: $version"
-  choosenim "$version"
 }
 
 #------------------------------------------------
