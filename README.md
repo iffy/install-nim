@@ -45,4 +45,6 @@ jobs:
 
 ## Implementation
 
-This uses [choosenim](https://github.com/dom96/choosenim/) by default, but can also be used to install specific versions of Nim from source.  See [.github/workflows/main.yml](.github/workflows/main.yml) for more examples of specifying the Nim version.
+This attempts to use the fastest method for installing Nim for the specified version.  For most cases [choosenim](https://github.com/dom96/choosenim/) is used.  For macOS, a nightly binary is sometimes used.
+
+You can also explicitly request a particular build method by prefixing the version with a tag (e.g. `git:` as above).  See [.github/workflows/main.yml](.github/workflows/main.yml) for examples.
