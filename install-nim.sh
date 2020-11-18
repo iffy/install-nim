@@ -112,6 +112,7 @@ build_nim() {
   fi
   bin/nim c koch
   ./koch boot -d:release
+  ./koch tools
 }
 
 #------------------------------------------------
