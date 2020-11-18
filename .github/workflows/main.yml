@@ -5,16 +5,37 @@ on:
     - cron: '0 0 * * 1'
 
 jobs:
-  nimversion:
+  default:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        nimversion: [stable, devel]
         os: [ubuntu-latest, macOS-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ./
+      - run: nim -v
+      - run: nimble -v
+  specific:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+        nim:
+        - stable
+        - devel
+        - 1.4
+        - 1
+        - 1.2
+        - 1.2.8
+        - 0.20.0
+        - nightly:https://github.com/nim-lang/nightlies/releases/tag/2020-11-11-devel-bbe49a14ae827b6474d692042406716a3b3dd71f
+        - sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz
+        - release:1.2.8
+        - git:bbe49a14ae827b6474d692042406716a3b3dd71f
     steps:
     - uses: actions/checkout@v1
     - uses: ./
       with:
-        nimversion: ${{ matrix.nimversion }}
+        version: ${{ matrix.nim }}
     - run: nim -v
     - run: nimble -v
