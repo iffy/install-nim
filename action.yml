@@ -1,9 +1,14 @@
-name: Installs Nim (iffy)
+name: Installs Nim
 description: Installs Nim and adds nim/nimble to the PATH
 author: iffy
 inputs:
-  nimversion:
+  version:
     default: stable
+
 runs:
-  using: node12
-  main: main.js
+  using: composite
+  steps:
+  - name: Install Nim
+    shell: bash
+    run: |
+      '${{ github.action_path }}/install-nim.sh' '${{ inputs.version }}'
