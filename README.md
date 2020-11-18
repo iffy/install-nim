@@ -48,3 +48,8 @@ jobs:
 This attempts to use the fastest method for installing Nim for the specified version.  For most cases [choosenim](https://github.com/dom96/choosenim/) is used.  For macOS, a nightly binary is sometimes used.
 
 You can also explicitly request a particular build method by prefixing the version with a tag (e.g. `git:` as above).  See [.github/workflows/main.yml](.github/workflows/main.yml) for examples.
+
+
+## Alternatives
+
+- https://github.com/alaviss/setup-nim 
