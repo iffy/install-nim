@@ -10,10 +10,10 @@ format:
 
   Using choosenim:
 
-    $0 choosenim:stable
-    $0 choosenim:1.4.0  # version 1.4.0
-    $0 choosenim:1.4    # latest version 1.4.x
-    $0 choosenim:1      # latest version 1.x.x
+    $0 stable
+    $0 1.4.0  # version 1.4.0
+    $0 1.4    # latest version 1.4.x
+    $0 1      # latest version 1.x.x
   
   From a prebuilt nightly binary:
   
