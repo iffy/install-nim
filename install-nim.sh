@@ -218,10 +218,11 @@ if [ -z "$TARGET" ]; then
   exit 1
 fi
 
-install_type=$(echo "$TARGET" | cut -d: -f1)
-install_arg=$(echo "$TARGET" | cut -d: -f2-)
-if [ "$install_type" == "$install_arg" ]; then
-  install_type="choosenim"
+install_type=choosenim
+install_arg="$TARGET"
+if echo $TARGET | grep ':' >/dev/null ; then
+  install_type=$(echo "$TARGET" | cut -d: -f1)
+  install_arg=$(echo "$TARGET" | cut -d: -f2-)
 fi
 
 #------------------------------------------------
