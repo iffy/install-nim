@@ -35,7 +35,7 @@ jobs:
     - uses: actions/checkout@v1
     - uses: iffy/install-nim@v3
       with:
-        nimversion: ${{ matrix.version }}
+        version: ${{ matrix.version }}
     - name: Test
       continue-on-error: ${{ matrix.version == 'devel' }}
       run: |
