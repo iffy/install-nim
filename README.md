@@ -5,16 +5,26 @@ Put the following in `.github/workflows/tests.yml`
 ## Use latest stable Nim version
 
 ```yaml
-steps:
-  - uses: actions/checkout@v2
-  - uses: iffy/install-nim@v3
-  - run: nimble install -y
-  - run: nimble test
+on:
+  pull_request:
+  push:
+
+jobs:
+  default:
+    steps:
+      - uses: actions/checkout@v2
+      - uses: iffy/install-nim@v3
+      - run: nimble install -y
+      - run: nimble test
 ```
 
 ## Use specific Nim versions
 
 ```yaml
+on:
+  pull_request:
+  push:
+
 jobs:
   tests:
     runs-on: ${{ matrix.os }}
