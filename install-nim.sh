@@ -49,7 +49,7 @@ add-path() {
     echo "Directory '$1' has been added to PATH."
   elif [ ! -z "$AZURE_HTTP_USER_AGENT" ]; then
     # Running on Azure Pipelines
-    echo "##vso[task.setvariable variable=path]\$(PATH):$1"
+    echo "##vso[task.prependpath]$1"
     echo "Directory '$1' has been added to PATH."
   fi
 }
