@@ -42,9 +42,14 @@ abspath() {
   python -c "import os; import sys; print(os.path.realpath(sys.argv[1]))" "$1"
 }
 add-path() {
-  echo "$1" >> "$GITHUB_PATH"
-  export PATH="$1:$PATH"
-  echo "Directory '$1' has been added to PATH."
+  if [ ! -z "$GITHUB_PATH" ]; then
+    echo "$1" >> "$GITHUB_PATH"
+    export PATH="$1:$PATH"
+    echo "Directory '$1' has been added to PATH."
+  # elif 
+  #   echo '##vso[task.setvariable variable=path]$(PATH):/dir/to/whatever'
+  # else
+  fi
 }
 
 guess_archive_name() {
@@ -234,11 +239,7 @@ echo "       param: $install_arg"
 #------------------------------------------------
 # Set up PATH
 #------------------------------------------------
-if [ -z "$GITHUB_PATH" ]; then
-  echo "Not setting up PATH since GITHUB_PATH is not defined"
-else
-  echo "Setting up PATH"
-  add-path "$(abspath "$NIMDIR/bin")"
-  add-path "$(pwd)/$NIMDIR/bin"
-  add-path "$HOME/.nimble/bin"
-fi
+echo "Setting up PATH"
+add-path "$(abspath "$NIMDIR/bin")"
+add-path "$(pwd)/$NIMDIR/bin"
+add-path "$HOME/.nimble/bin"
