@@ -43,12 +43,14 @@ abspath() {
 }
 add-path() {
   if [ ! -z "$GITHUB_PATH" ]; then
+    # Running on GitHub Actions
     echo "$1" >> "$GITHUB_PATH"
     export PATH="$1:$PATH"
     echo "Directory '$1' has been added to PATH."
-  # elif 
-  #   echo '##vso[task.setvariable variable=path]$(PATH):/dir/to/whatever'
-  # else
+  elif [ ! -z "$AZURE_HTTP_USER_AGENT" ]; then
+    # Running on Azure Pipelines
+    echo "##vso[task.setvariable variable=path]\$(PATH):$1"
+    echo "Directory '$1' has been added to PATH."
   fi
 }
 
