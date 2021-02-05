@@ -192,13 +192,17 @@ install_nightly() {
   echo "Archive pattern: $archive_name"
   local archive_url; archive_url=
   tag=${url##*/}
-  echo "tag: $tag"
-  archive_url=$(curl -H "Accept: application/vnd.github.v3+json" "https://api.github.com/repos/nim-lang/nightlies/releases/tags/$tag" | grep '"browser_download_url"' | grep "$archive_name" | head -n1 | cut -d'"' -f4)
+  echo "tag=$tag"
+  nightlydataurl="https://api.github.com/repos/nim-lang/nightlies/releases/tags/$tag"
+  curl -o nightlydata.json -H "Accept: application/vnd.github.v3+json" "$nightlydataurl"
+  archive_url=$(cat nightlydata.json | grep '"browser_download_url"' | grep "$archive_name" | head -n1 | cut -d'"' -f4)
   if [ -z "$archive_url" ]; then
-    echo "ERROR: unable to find archive for $archive_name"
+    echo "ERROR: nightly data from $nightlydataurl --------------------"
+    cat nightlydata.json
+    echo "ERROR: unable to find archive matching pattern $archive_name"
     exit 1
   fi
-  echo "archive url: $archive_url"
+  echo "archive_url=$archive_url"
   unpack_prebuilt "$archive_url"
 }
 
