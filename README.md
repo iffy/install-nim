@@ -54,6 +54,16 @@ jobs:
         nimble test
 ```
 
+If you run into trouble with GitHub rate limits, set the `GITHUB_TOKEN` environment variable like this:
+
+```yaml
+jobs:
+  tests:
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # etc...
+```
+
 ## Implementation
 
 By default, this action uses [choosenim](https://github.com/dom96/choosenim/) to install Nim.

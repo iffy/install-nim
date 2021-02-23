@@ -17,6 +17,8 @@ jobs:
       - run: nimble -v
   specific:
     runs-on: ${{ matrix.os }}
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     strategy:
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
