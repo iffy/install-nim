@@ -199,7 +199,7 @@ install_nightly() {
   AUTHARGS=""
   if [ ! -z "$GITHUB_TOKEN" ]; then
     echo "Using GITHUB_TOKEN for authenticated request"
-    AUTHARGS="-u "'"'"$GITHUB_TOKEN"'"'""
+    AUTHARGS="--header 'authorization: Bearer ${GITHUB_TOKEN}'"
   fi
   curl -o nightlydata.json $AUTHARGS -H "Accept: application/vnd.github.v3+json" "$nightlydataurl"
   archive_url=$(cat nightlydata.json | grep '"browser_download_url"' | grep "$archive_name" | head -n1 | cut -d'"' -f4)
