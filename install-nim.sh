@@ -196,12 +196,12 @@ install_nightly() {
   tag=${url##*/}
   echo "tag=$tag"
   nightlydataurl="https://api.github.com/repos/nim-lang/nightlies/releases/tags/$tag"
-  AUTHARGS=""
+  AUTHARGS=()
   if [ ! -z "$GITHUB_TOKEN" ]; then
     echo "Using GITHUB_TOKEN for authenticated request"
-    AUTHARGS="--header 'authorization: Bearer ${GITHUB_TOKEN}'"
+    AUTHARGS+=(--header "Authorization: Bearer ${GITHUB_TOKEN}")
   fi
-  curl -o nightlydata.json $AUTHARGS -H "Accept: application/vnd.github.v3+json" "$nightlydataurl"
+  curl -o nightlydata.json "${AUTHARGS[@]}" --header "Accept: application/vnd.github.v3+json" "$nightlydataurl"
   archive_url=$(cat nightlydata.json | grep '"browser_download_url"' | grep "$archive_name" | head -n1 | cut -d'"' -f4)
   if [ -z "$archive_url" ]; then
     echo "ERROR: nightly data from $nightlydataurl --------------------"
