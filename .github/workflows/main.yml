@@ -8,6 +8,7 @@ jobs:
   default:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
     steps:
@@ -38,3 +39,4 @@ jobs:
         version: ${{ matrix.nim }}
     - run: nim -v
     - run: nimble -v
+    - run: nimble install -y compiler
