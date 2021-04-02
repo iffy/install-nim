@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: iffy/install-nim@v3
+      - uses: iffy/install-nim@v3.2.0
       - run: nimble install -y
       - run: nimble test
 ```
@@ -44,7 +44,7 @@ jobs:
           - windows-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: iffy/install-nim@v3
+    - uses: iffy/install-nim@v3.2.0
       with:
         version: ${{ matrix.version }}
     - name: Test
