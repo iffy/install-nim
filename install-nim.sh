@@ -225,7 +225,7 @@ install_choosenim() {
   local os; os=$(uname)
   if [ "$os" != "Darwin" ] && [ "$os" != "Linux" ]; then
     # Make sure DLLs made it. This is a hack to overcome https://github.com/dom96/choosenim/issues/251
-    local bindir="$(dirname "$(which nim)")"
+    local bindir="${HOME}/.nimble/bin"
     if [ $(ls "$bindir" | grep dll | wc -l) -lt 13 ]; then
       echo "Installing missing DLLs into ${bindir} ..."
       curl -L http://nim-lang.org/download/dlls.zip -o dlls.zip
