@@ -222,6 +222,17 @@ install_choosenim() {
   export CHOOSENIM_NO_ANALYTICS=1
   export CHOOSENIM_CHOOSE_VERSION="$target"
   curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s -- -y
+  local os; os=$(uname)
+  if [ "$os" != "Darwin" ] && [ "$os" == "Linux" ]; then
+    # Make sure DLLs made it. This is a hack to overcome https://github.com/dom96/choosenim/issues/251
+    local bindir="$(dirname "$(which nim)")"
+    if [ $(ls "$bindir" | grep dll | wc -l) -lt 13 ]; then
+      echo "Installing missing DLLs into ${bindir} ..."
+      curl http://nim-lang.org/download/dlls.zip -o dlls.zip
+      unzip dlls.zip -d "$bindir"
+      rm dlls.zip
+    fi
+  fi
   add-path "$HOME/.nimble/bin"
   add-path "$(abspath "$HOME/.nimble/bin")"
 }
