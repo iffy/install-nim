@@ -26,7 +26,7 @@ jobs:
         os: [ubuntu-latest, macOS-latest, windows-latest]
         nim:
           - stable
-          - devel
+          # - devel
           - 1.4.0
           - 0.20.0
           - nightly:https://github.com/nim-lang/nightlies/releases/tag/2020-11-11-devel-bbe49a14ae827b6474d692042406716a3b3dd71f
