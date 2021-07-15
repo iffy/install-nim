@@ -15,6 +15,8 @@ jobs:
       - uses: ./
       - run: nim -v
       - run: nimble -v
+      - name: Test
+        run: nim c -r sample.nim
   specific:
     runs-on: ${{ matrix.os }}
     env:
@@ -32,11 +34,11 @@ jobs:
           - release:1.2.8
           - git:bbe49a14ae827b6474d692042406716a3b3dd71f
     steps:
-    - uses: actions/checkout@v1
-    - uses: ./
-      with:
-        version: ${{ matrix.nim }}
-    - run: nim -v
-    - run: nimble -v
-    - name: Test
-      run: nim c -r sample.nim
+      - uses: actions/checkout@v1
+      - uses: ./
+        with:
+          version: ${{ matrix.nim }}
+      - run: nim -v
+      - run: nimble -v
+      - name: Test
+        run: nim c -r sample.nim
