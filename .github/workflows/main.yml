@@ -38,3 +38,5 @@ jobs:
         version: ${{ matrix.nim }}
     - run: nim -v
     - run: nimble -v
+    - name: Test
+      run: nim c -r sample.nim
