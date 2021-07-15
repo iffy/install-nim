@@ -77,3 +77,4 @@ These other GitHub actions might suit your needs better (they're worth checking 
 
 - https://github.com/alaviss/setup-nim
 - https://github.com/jiro4989/setup-nim-action
+
