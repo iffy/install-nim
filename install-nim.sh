@@ -122,6 +122,26 @@ build_nim() {
   ./koch tools
 }
 
+ensure_dlls() {
+  bindir="$1"
+  if [ ! -f "${bindir}/nim" ]; then
+    return
+  fi
+  local os; os=$(uname)
+  if [ "$os" != "Darwin" ] && [ "$os" != "Linux" ]; then
+    # Make sure DLLs made it. This is a hack to overcome https://github.com/dom96/choosenim/issues/251
+    echo "Making sure DLLs are installed"
+    if [ $(ls "$bindir" | grep dll | wc -l) -lt 13 ]; then
+      echo "Installing missing DLLs into ${bindir} ..."
+      curl -L http://nim-lang.org/download/dlls.zip -o dlls.zip
+      unzip dlls.zip -d "$bindir"
+      rm dlls.zip
+    else
+      echo "DLLs appear to have already been installed to ${bindir}"
+    fi
+  fi
+}
+
 #------------------------------------------------
 # Install a published released version of Nim
 #------------------------------------------------
@@ -222,17 +242,6 @@ install_choosenim() {
   export CHOOSENIM_NO_ANALYTICS=1
   export CHOOSENIM_CHOOSE_VERSION="$target"
   curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s -- -y
-  local os; os=$(uname)
-  if [ "$os" != "Darwin" ] && [ "$os" != "Linux" ]; then
-    # Make sure DLLs made it. This is a hack to overcome https://github.com/dom96/choosenim/issues/251
-    local bindir="${HOME}/.nimble/bin"
-    if [ $(ls "$bindir" | grep dll | wc -l) -lt 13 ]; then
-      echo "Installing missing DLLs into ${bindir} ..."
-      curl -L http://nim-lang.org/download/dlls.zip -o dlls.zip
-      unzip dlls.zip -d "$bindir"
-      rm dlls.zip
-    fi
-  fi
   add-path "$HOME/.nimble/bin"
   add-path "$(abspath "$HOME/.nimble/bin")"
 }
@@ -264,6 +273,17 @@ echo "       param: $install_arg"
 # Set up PATH
 #------------------------------------------------
 echo "Setting up PATH"
-add-path "$(abspath "$NIMDIR/bin")"
-add-path "$(pwd)/$NIMDIR/bin"
-add-path "$HOME/.nimble/bin"
+[ -f "$NIMDIR/bin/nim" ] && add-path "$(abspath "$NIMDIR/bin")"
+[ -f "$(pwd)/$NIMDIR/bin/nim" ] && add-path "$(pwd)/$NIMDIR/bin"
+[ -f "$HOME/.nimble/bin/nim" ] && add-path "$HOME/.nimble/bin" && add-path "$(abspath "$HOME/.nimble/bin")"
+
+#------------------------------------------------
+# DLLs
+#------------------------------------------------
+if [ -f "$HOME/.nimble/bin/nim" ]; then
+  ensure_dlls "$HOME/.nimble/bin"
+elif [ -f "$NIMDIR/bin/nim" ]; then
+  ensure_dlls "$NIMDIR/bin"
+else
+  echo "Nim doesn't seem to have been installed"
+fi
