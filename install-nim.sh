@@ -244,6 +244,8 @@ install_choosenim() {
   if [ -z "$SHELL" ]; then
     export SHELL="/bin/sh" # fix for Issue #14
     echo "Set SHELL=$SHELL"
+  else
+    echo "SHELL is ${SHELL};"
   fi
   curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s -- -y
   add-path "$HOME/.nimble/bin"
