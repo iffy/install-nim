@@ -15,8 +15,10 @@ jobs:
       - run: env | sort
       - name: "test"
         run: |
-          echo what is going on?
-        shell: /bin/bash
+          set -x
+          echo 'echo $SHELL' | sh -s
+          echo 'env' | sh -s
+        shell: bash
       - uses: ./
       - run: nim -v
       - run: nimble -v
