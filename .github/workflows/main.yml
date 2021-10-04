@@ -14,10 +14,9 @@ jobs:
       - uses: actions/checkout@v1
       - run: env | sort
       - name: "test"
-        shell: /bin/bash
         run: |
-          echo 'echo $SHELL' | sh -s
-          echo 'env' | sh -s
+          echo what is going on?
+        shell: /bin/bash
       - uses: ./
       - run: nim -v
       - run: nimble -v
