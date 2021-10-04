@@ -11,4 +11,5 @@ runs:
   - name: Install Nim
     shell: bash
     run: |
+      export SHELL=/bin/bash
       '${{ github.action_path }}/install-nim.sh' '${{ inputs.version }}'
