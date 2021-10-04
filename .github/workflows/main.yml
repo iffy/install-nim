@@ -13,6 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: env | sort
+      - shell: /bin/bash
+        run: |
+          set -x
+          echo 'echo $SHELL' | sh -s
+          echo 'env' | sh -s
       - uses: ./
       - run: nim -v
       - run: nimble -v
