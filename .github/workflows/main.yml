@@ -23,6 +23,9 @@ jobs:
           echo 'env | sort' | sh -s
         shell: bash
       - uses: ./
+      - run: |
+          ls -al /home/runner/.choosenim/toolchains/nim-1.4.8/bin/
+        shell: bash
       - run: nim -v
       - run: nimble -v
       - name: Test
