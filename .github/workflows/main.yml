@@ -12,7 +12,7 @@ jobs:
         os: [ubuntu-latest, macOS-latest, windows-latest]
     steps:
       - uses: actions/checkout@v1
-      - run: env
+      - run: env | sort
       - uses: ./
       - run: nim -v
       - run: nimble -v
@@ -36,7 +36,7 @@ jobs:
           - git:bbe49a14ae827b6474d692042406716a3b3dd71f
     steps:
       - uses: actions/checkout@v1
-      - run: env
+      - run: env | sort
       - uses: ./
         with:
           version: ${{ matrix.nim }}

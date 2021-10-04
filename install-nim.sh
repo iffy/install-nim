@@ -241,12 +241,6 @@ install_choosenim() {
   echo "Installing via choosenim for: $target"
   export CHOOSENIM_NO_ANALYTICS=1
   export CHOOSENIM_CHOOSE_VERSION="$target"
-  if [ -z "$SHELL" ]; then
-    export SHELL="/bin/sh" # fix for Issue #14
-    echo "Set SHELL=$SHELL"
-  else
-    echo "SHELL is ${SHELL};"
-  fi
   curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s -- -y
   add-path "$HOME/.nimble/bin"
   add-path "$(abspath "$HOME/.nimble/bin")"
@@ -260,6 +254,13 @@ TARGET=$1
 if [ -z "$TARGET" ]; then
   usage
   exit 1
+fi
+
+if [ -z "$SHELL" ]; then
+  export SHELL="/bin/bash" # fix for Issue #14
+  echo "Set SHELL=$SHELL"
+else
+  echo "SHELL is -->${SHELL}<--"
 fi
 
 install_type=$(echo "$TARGET" | cut -d: -f1)
