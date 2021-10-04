@@ -1,3 +1,8 @@
+# v3.2.2 - 2021-10-04
+
+- **FIX:** Add workaround for permission error in choosenim 0.8.0
+- **FIX:** Ensure that SHELL is set during choosenim builds ([#14](https://github.com/iffy/install-nim/issues/14))
+
 # v3.2.1 - 2021-07-15
 
 - **FIX:** Windows DLLs are installed if the installation method fails to do it
