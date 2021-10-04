@@ -291,7 +291,8 @@ fi
 #------------------------------------------------
 # Temporary workaround for https://github.com/dom96/choosenim/issues/272
 #------------------------------------------------
-if ! [ -x "$NIMDIR/bin/nim" ]; then
+if ! [ -x "$(which nim)" ]; then
   echo "Temporary permission fix for issue https://github.com/dom96/choosenim/issues/272"
-  chmod u+x "${NIMDIR}"/bin/*
+  BINDIR="$(dirname $(which nim))"
+  chmod u+x "${BINDIR}"/*
 fi
