@@ -244,6 +244,12 @@ install_choosenim() {
   curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s -- -y
   add-path "$HOME/.nimble/bin"
   add-path "$(abspath "$HOME/.nimble/bin")"
+
+  #------------------------------------------------
+  # Temporary workaround for https://github.com/dom96/choosenim/issues/272
+  #------------------------------------------------
+  echo "Temporary permission fix for issue https://github.com/dom96/choosenim/issues/272"
+  chmod u+x "${HOME}"/.choosenim/toolchains/*/bin/*
 }
 
 #------------------------------------------------
@@ -288,11 +294,3 @@ else
   echo "Nim doesn't seem to have been installed"
 fi
 
-#------------------------------------------------
-# Temporary workaround for https://github.com/dom96/choosenim/issues/272
-#------------------------------------------------
-if ! [ -x "$(which nim)" ]; then
-  echo "Temporary permission fix for issue https://github.com/dom96/choosenim/issues/272"
-  BINDIR="$(dirname $(which nim))"
-  chmod u+x "${BINDIR}"/*
-fi
