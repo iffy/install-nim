@@ -241,6 +241,9 @@ install_choosenim() {
   echo "Installing via choosenim for: $target"
   export CHOOSENIM_NO_ANALYTICS=1
   export CHOOSENIM_CHOOSE_VERSION="$target"
+  if [ -z "$SHELL" ]; then
+    export SHELL="/bin/sh" # fix for Issue #14
+  fi
   curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s -- -y
   add-path "$HOME/.nimble/bin"
   add-path "$(abspath "$HOME/.nimble/bin")"

@@ -35,6 +35,7 @@ jobs:
           - git:bbe49a14ae827b6474d692042406716a3b3dd71f
     steps:
       - uses: actions/checkout@v1
+      - run: env
       - uses: ./
         with:
           version: ${{ matrix.nim }}
