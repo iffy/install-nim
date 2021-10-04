@@ -1,1 +1,1 @@
-Ensure that SHELL is set during choosenim builds
+Ensure that SHELL is set during choosenim builds (#14)
