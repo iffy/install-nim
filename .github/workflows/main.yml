@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v1
       - run: env | sort
       - shell: /bin/bash
-        run: |
+        run: >-
           set -x
           echo 'echo $SHELL' | sh -s
           echo 'env' | sh -s
