@@ -256,13 +256,6 @@ if [ -z "$TARGET" ]; then
   exit 1
 fi
 
-if [ -z "$SHELL" ]; then
-  export SHELL="/bin/bash" # fix for Issue #14
-  echo "Set SHELL=$SHELL"
-else
-  echo "SHELL is -->${SHELL}<--"
-fi
-
 install_type=$(echo "$TARGET" | cut -d: -f1)
 install_arg=$(echo "$TARGET" | cut -d: -f2-)
 if [ "$install_type" == "$install_arg" ]; then
