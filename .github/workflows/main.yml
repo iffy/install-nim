@@ -16,7 +16,6 @@ jobs:
       - name: "test"
         shell: /bin/bash
         run: |
-          set -x
           echo 'echo $SHELL' | sh -s
           echo 'env' | sh -s
       - uses: ./
