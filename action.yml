@@ -1,6 +1,9 @@
 name: Installs Nim
 description: Installs Nim and adds nim/nimble to the PATH
 author: iffy
+branding:
+  icon: download
+  color: yellow
 inputs:
   version:
     default: stable
