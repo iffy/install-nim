@@ -1,3 +1,7 @@
+# v3.2.3 - 2021-11-10
+
+- **FIX:** Added to GitHub Marketplace
+
 # v3.2.2 - 2021-10-04
 
 - **FIX:** Add workaround for permission error in choosenim 0.8.0
