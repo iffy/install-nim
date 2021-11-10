@@ -1,4 +1,4 @@
-name: Installs Nim
+name: Install Nim
 description: Installs Nim and adds nim/nimble to the PATH
 author: iffy
 branding:
