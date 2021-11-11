@@ -1,3 +1,7 @@
+# v3.3.0 - 2021-11-11
+
+- **NEW:** Added the `binary:` tag for installing pre-compiled binaries from nightlies, but only having to specify a version. Not supported for all versions.
+
 # v3.2.3 - 2021-11-10
 
 - **FIX:** Added to GitHub Marketplace
