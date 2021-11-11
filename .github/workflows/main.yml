@@ -19,6 +19,13 @@ jobs:
       - name: Test
         run: nim c -r sample.nim
 
+  # Check for tags missing from nightlies.txt
+  missing_binary_tags:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: ./getnightlies.sh
+
   # Compile a list of versions to test with in the next step  
   matrix_prep:
     runs-on: ubuntu-latest
