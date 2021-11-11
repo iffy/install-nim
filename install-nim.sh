@@ -234,6 +234,24 @@ install_nightly() {
 }
 
 #------------------------------------------------
+# Install nightly prebuild binaries
+# from a version number. This relies on precompiling
+# a mapping of version number to nightly using
+# `nim c -r getnightlies.nim`
+#------------------------------------------------
+install_binary() {
+  version=${1}
+  URL="$(grep "$version" nightlies.txt | cut -d' ' -f2 | head -n 1)"
+  if [ ! -z "$URL" ] && [ ! "$URL" == "none" ]; then
+    echo "Found nightly URL for ${version}: ${URL}"
+    install_nightly "$URL"
+  else
+    echo "ERROR: no nightly found for ${version}"
+    exit 1
+  fi
+}
+
+#------------------------------------------------
 # Install using choosenim
 #------------------------------------------------
 install_choosenim() {

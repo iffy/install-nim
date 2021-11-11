@@ -17,22 +17,50 @@ jobs:
       - run: nimble -v
       - name: Test
         run: nim c -r sample.nim
+
+  # Compile a list of versions to test with in the next step  
+  matrix_prep:
+    runs-on: ubuntu-latest
+    outputs:
+      nimversions: ${{ steps.set-nim-versions.outputs.nimversions }}
+    steps:
+      - id: set-nim-versions
+        run: |
+          cat > script.py <<EOF
+          import io
+          import json
+          versions = [
+            'stable',
+            # 'devel',
+            '1.4.0',
+            '0.20.0',
+            'nightly:https://github.com/nim-lang/nightlies/releases/tag/2020-11-11-devel-bbe49a14ae827b6474d692042406716a3b3dd71f',
+            'binary:1.4.0',
+            'sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz',
+            'release:1.2.8',
+            'git:bbe49a14ae827b6474d692042406716a3b3dd71f',
+          ]
+          with io.open('nightlies.txt', 'r') as fh:
+            for line in fh:
+              if 'https' in line:
+                tag = 'binary:' + line.split()[0]
+                if tag not in versions:
+                  versions.append(tag)
+          print("::set-output name=nimversions::" + json.dumps(versions))
+          EOF
+          python script.py
+      - run: echo "${{ steps.set-nim-versions.outputs.nimversions }}"
+
   specific:
+    needs:
+      - matrix_prep
     runs-on: ${{ matrix.os }}
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     strategy:
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
-        nim:
-          - stable
-          # - devel
-          - 1.4.0
-          - 0.20.0
-          - nightly:https://github.com/nim-lang/nightlies/releases/tag/2020-11-11-devel-bbe49a14ae827b6474d692042406716a3b3dd71f
-          - sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz
-          - release:1.2.8
-          - git:bbe49a14ae827b6474d692042406716a3b3dd71f
+        nim: ${{ fromJson(needs.binaries.matrix_prep.outputs.nimversions) }}
     steps:
       - uses: actions/checkout@v1
       - uses: ./
@@ -42,3 +70,4 @@ jobs:
       - run: nimble -v
       - name: Test
         run: nim c -r sample.nim
+  

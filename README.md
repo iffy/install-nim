@@ -38,6 +38,7 @@ jobs:
           - 1.2.8
           - 1.0.10
           - git:bbe49a14ae827b6474d692042406716a3b3dd71f
+          - binary:1.6.0
         os:
           - ubuntu-latest
           - macOS-latest
@@ -70,6 +71,7 @@ By default, this action uses [choosenim](https://github.com/dom96/choosenim/) to
 
 You can also explicitly request a particular build method by prefixing the version with a tag (e.g. `git:` as above).  See [.github/workflows/main.yml](.github/workflows/main.yml) for examples.
 
+If available, the fastest way to install is with the `binary:` tag (e.g. `binary:1.4.0`). See [nightlies.txt](nightlies.txt) for a list of available versions.
 
 ## Alternatives
 
