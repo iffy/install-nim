@@ -62,6 +62,8 @@ jobs:
         run: nim c -r sample.nim
   
   default:
+    needs:
+      - matrix_prep
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
