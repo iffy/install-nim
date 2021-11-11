@@ -6,6 +6,18 @@ on:
     - cron: '0 0 * * 1'
 
 jobs:
+  default:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ./
+      - run: nim -v
+      - run: nimble -v
+      - name: Test
+        run: nim c -r sample.nim
 
   # Compile a list of versions to test with in the next step  
   matrix_prep:
@@ -61,17 +73,3 @@ jobs:
       - name: Test
         run: nim c -r sample.nim
   
-  default:
-    needs:
-      - matrix_prep
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
-    steps:
-      - uses: actions/checkout@v1
-      - uses: ./
-      - run: nim -v
-      - run: nimble -v
-      - name: Test
-        run: nim c -r sample.nim
