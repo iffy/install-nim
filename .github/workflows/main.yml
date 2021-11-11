@@ -24,6 +24,7 @@ jobs:
     outputs:
       nimversions: ${{ steps.set-nim-versions.outputs.nimversions }}
     steps:
+      - uses: actions/checkout@v1
       - id: set-nim-versions
         run: |
           cat > script.py <<EOF
