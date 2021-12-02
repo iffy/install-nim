@@ -37,6 +37,7 @@ Set GITHUB_TOKEN= to a GitHub API Token generated at
 EOF
 }
 set +x
+THISDIR="$(dirname "$(readlink -fm "$0")")"
 NIMDIR=${NIMDIR:-nimdir}
 
 
@@ -242,7 +243,7 @@ install_nightly() {
 install_binary() {
   version=${1}
   echo "install_binary $version"
-  URL="$(grep "$version" nightlies.txt | cut -d' ' -f2 | head -n 1)"
+  URL="$(grep "$version" "${THISDIR}/nightlies.txt" | cut -d' ' -f2 | head -n 1)"
   if [ ! -z "$URL" ] && [ ! "$URL" == "none" ]; then
     echo "Found nightly URL for ${version}: ${URL}"
     install_nightly "$URL"
