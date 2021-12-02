@@ -37,7 +37,7 @@ Set GITHUB_TOKEN= to a GitHub API Token generated at
 EOF
 }
 set +x
-THISDIR="$(dirname "$(readlink -fm "$0")")"
+THISDIR="$(abspath "$(dirname "$0")")"
 NIMDIR=${NIMDIR:-nimdir}
 
 
