@@ -81,6 +81,11 @@ jobs:
       - name: Test installed executable
         shell: bash
         run: |
+          set -x
+          ls -al "$HOME"
+          ls -al "$HOME/.nimble"
+          ls -al "$HOME/.nimble/bin"
+          echo $PATH
           cd .github/workflows/sampleproj
           nimble install --verbose -y
           nimble path sampleproj
