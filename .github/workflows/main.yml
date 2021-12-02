@@ -81,6 +81,7 @@ jobs:
       - name: Test installed executable
         shell: bash
         run: |
-          nimble install -y changer
-          which changer
+          cd .github/workflows/sampleproj
+          nimble install -y
+          hello
   

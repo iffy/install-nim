@@ -1,0 +1,2 @@
+bin = @["hello"]
+requires "nim"
