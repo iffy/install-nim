@@ -241,6 +241,7 @@ install_nightly() {
 #------------------------------------------------
 install_binary() {
   version=${1}
+  echo "install_binary $version"
   URL="$(grep "$version" nightlies.txt | cut -d' ' -f2 | head -n 1)"
   if [ ! -z "$URL" ] && [ ! "$URL" == "none" ]; then
     echo "Found nightly URL for ${version}: ${URL}"
