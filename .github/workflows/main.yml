@@ -82,6 +82,7 @@ jobs:
         shell: bash
         run: |
           cd .github/workflows/sampleproj
-          nimble install -y
+          nimble install --verbose -y
+          nimble path sampleproj
           hello
   
