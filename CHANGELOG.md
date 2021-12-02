@@ -1,3 +1,7 @@
+# v4.0.2 - 2021-12-02
+
+- **FIX:** For real... look for nightlies.txt in the right spot
+
 # v4.0.1 - 2021-12-02
 
 - **FIX:** `$HOME/.nimble/bin` is always added to PATH now
