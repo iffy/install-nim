@@ -301,7 +301,7 @@ echo "       param: $install_arg"
 echo "Setting up PATH"
 [ -f "$NIMDIR/bin/nim" ] && add-path "$(abspath "$NIMDIR/bin")"
 [ -f "$(pwd)/$NIMDIR/bin/nim" ] && add-path "$(pwd)/$NIMDIR/bin"
-[ -d "$HOME/.nimble/bin" ] && add-path "$HOME/.nimble/bin" && add-path "$(abspath "$HOME/.nimble/bin")"
+add-path "$HOME/.nimble/bin" && add-path "$(abspath "$HOME/.nimble/bin")"
 #[ -f "$HOME/.nimble/bin/nim" ] && add-path "$HOME/.nimble/bin" && add-path "$(abspath "$HOME/.nimble/bin")"
 
 
