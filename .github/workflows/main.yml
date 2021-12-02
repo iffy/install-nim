@@ -81,6 +81,6 @@ jobs:
       - name: Test installed executable
         shell: bash
         run: |
-          nimble install changer
+          nimble install -y changer
           which changer
   
