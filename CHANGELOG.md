@@ -1,3 +1,10 @@
+# v4.0.1 - 2021-12-02
+
+- **FIX:** `$HOME/.nimble/bin` is always added to PATH now
+- **FIX:** Added test for installed nimble binaries being in the path
+- **FIX:** `binary:` prefix installations work instead of failing to find `nightlies.txt`
+- **FIX:** Revert to running from current dir"
+
 # v4.0.0 - 2021-12-01
 
 - **BREAKING CHANGE:** Run install-nim.sh within the github.action_path directory
