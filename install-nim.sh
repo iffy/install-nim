@@ -37,13 +37,13 @@ Set GITHUB_TOKEN= to a GitHub API Token generated at
 EOF
 }
 set +x
-THISDIR="$(abspath "$(dirname "$0")")"
-NIMDIR=${NIMDIR:-nimdir}
-
-
 abspath() {
   python -c "import os; import sys; print(os.path.realpath(sys.argv[1]))" "$1"
 }
+
+NIMDIR=${NIMDIR:-nimdir}
+THISDIR="$(abspath "$(dirname "$0")")"
+
 add-path() {
   if [ ! -z "$GITHUB_PATH" ]; then
     # Running on GitHub Actions
