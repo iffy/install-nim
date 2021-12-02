@@ -1,3 +1,7 @@
+# v4.0.0 - 2021-12-01
+
+- **BREAKING CHANGE:** Run install-nim.sh within the github.action_path directory
+
 # v3.3.0 - 2021-11-11
 
 - **NEW:** Added the `binary:` tag for installing pre-compiled binaries from nightlies, but only having to specify a version. Not supported for all versions.
