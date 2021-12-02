@@ -78,4 +78,9 @@ jobs:
       - run: nimble -v
       - name: Test
         run: nim c -r sample.nim
+      - name: Test installed executable
+        shell: bash
+        run: |
+          nimble install changer
+          which changer
   
