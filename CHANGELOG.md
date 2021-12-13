@@ -1,3 +1,7 @@
+# v4.1.0 - 2021-12-13
+
+- **NEW:** Added `binary:1.2.14` as an install option
+
 # v4.0.2 - 2021-12-02
 
 - **FIX:** For real... look for nightlies.txt in the right spot
