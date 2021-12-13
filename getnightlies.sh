@@ -25,25 +25,31 @@ for tag in $(git ls-remote --tags "${NIM_REPO}" | cut -f2 | grep '\^' | cut -d'^
   log "tag: ${tag}"
   version="$(echo $tag | cut -c2-)"
   if grep "$version https:" "$OUTFILE" > /dev/null; then
-    log "  already here"
+    log "  DONE: already has a URL"
     grep "$version https:" "$OUTFILE" | tee  -a "$TMPOUT"
     continue
   elif grep "$version none" "$OUTFILE" > /dev/null; then
     grep "$version " "$OUTFILE" | tee -a "$TMPOUT"
-    log "  is none"
+    log "  DONE: is none"
     continue
   fi
   # Not present, let's get more details about this tag
+  log "  missing..."
   if [ ! -d _nim ]; then
     log "Cloning $NIM_REPO to _nim"
     git clone "$NIM_REPO" _nim
   fi
   pushd _nim
+    git fetch origin
+    log "  attempting to get the release_date"
     release_date="$(git log -n 1 --format="format:%cs" "$tag")"
+    log "  release_date=${release_date}"
+    log "  attempting to get the sha"
     sha="$(git log -n 1 --format="format:%H" "$tag")"
+    log "  sha=${sha}"
   popd
   if [[ "$release_date" < "2019-06-14" ]]; then
-    log "Before nightlies existed"
+    log "  SKIP: this tag was from before nightlies existed"
     echo "$version none" | tee -a "$TMPOUT"
     continue
   fi
