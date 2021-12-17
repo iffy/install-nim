@@ -31,6 +31,7 @@
 1.2.10 https://github.com/nim-lang/nightlies/releases/tag/2021-02-23-version-1-2-ebc114c5266582dcaf5e323e0ec3d2b2a9f17063
 1.2.12 https://github.com/nim-lang/nightlies/releases/tag/2021-04-15-version-1-2-fb03c4b937ec4d96ca7b54c5527640f1ea8a9ad8
 1.2.14 https://github.com/nim-lang/nightlies/releases/tag/2021-11-08-version-1-2-d327eaacbfda7d486279f0abe30e8e4fd89628cb
+1.2.16 https://github.com/nim-lang/nightlies/releases/tag/2021-12-16-version-1-2-eeea72060ce3aeae591601bdb90039a600941ef3
 1.2.2 none
 1.2.4 none
 1.2.6 none
@@ -41,3 +42,4 @@
 1.4.6 https://github.com/nim-lang/nightlies/releases/tag/2021-04-15-version-1-4-2b6b08032348939e5d355a6cb4faa0169306c17f
 1.4.8 https://github.com/nim-lang/nightlies/releases/tag/2021-05-25-version-1-4-44e653a9314e1b8503f0fa4a8a34c3380b26fff3
 1.6.0 https://github.com/nim-lang/nightlies/releases/tag/2021-10-19-version-1-6-727c6378d2464090564dbcd9bc8b9ac648467e38
+1.6.2 https://github.com/nim-lang/nightlies/releases/tag/2021-12-17-version-1-6-9084d9bc02bcd983b81a4c76a05f27b9ce2707dd

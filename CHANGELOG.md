@@ -1,3 +1,7 @@
+# v4.1.1 - 2021-12-17
+
+- **FIX:** Add `binary:1.2.16` and `binary:1.6.2`
+
 # v4.1.0 - 2021-12-13
 
 - **NEW:** Added `binary:1.2.14` as an install option

@@ -65,13 +65,15 @@ jobs:
     # etc...
 ```
 
+## Speed
+
+If available, the fastest way to install is with the `binary:` tag (e.g. `binary:1.4.0`). See [nightlies.txt](nightlies.txt) for a list of available versions.
+
 ## Implementation
 
 By default, this action uses [choosenim](https://github.com/dom96/choosenim/) to install Nim.
 
 You can also explicitly request a particular build method by prefixing the version with a tag (e.g. `git:` as above).  See [.github/workflows/main.yml](.github/workflows/main.yml) for examples.
-
-If available, the fastest way to install is with the `binary:` tag (e.g. `binary:1.4.0`). See [nightlies.txt](nightlies.txt) for a list of available versions.
 
 ## Alternatives
 
