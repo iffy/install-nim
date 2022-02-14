@@ -1,3 +1,7 @@
+# v4.1.2 - 2022-02-14
+
+- **FIX:** Add binary:1.2.18 and binary:1.6.4
+
 # v4.1.1 - 2021-12-17
 
 - **FIX:** Add `binary:1.2.16` and `binary:1.6.2`
