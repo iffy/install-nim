@@ -1,3 +1,8 @@
+# v4.1.3 - 2022-05-05
+
+- **FIX:** Add `binary:1.6.6`
+- **FIX:** Anchored the regex that searches for `binary:` versions so that it no longer searches within the URL/Hash for each version ([#23](https://github.com/iffy/install-nim/issues/23))
+
 # v4.1.2 - 2022-02-14
 
 - **FIX:** Add binary:1.2.18 and binary:1.6.4
