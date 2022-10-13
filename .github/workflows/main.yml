@@ -30,7 +30,7 @@ jobs:
   matrix_prep:
     runs-on: ubuntu-latest
     outputs:
-      nimversions: ${{ steps.set-nim-versions.outputs.nimversions }}
+      nimversions: ${{ steps.set-nim-versions.outputs.NIMVERSIONS }}
     steps:
       - uses: actions/checkout@v1
       - id: set-nim-versions
@@ -56,10 +56,10 @@ jobs:
                 tag = 'binary:' + line.split()[0]
                 if tag not in versions:
                   versions.append(tag)
-          print("::set-output name=nimversions::" + json.dumps(versions))
+          print("NIMVERSIONS=" + json.dumps(versions))
           EOF
-          python script.py
-      - run: echo "${{ steps.set-nim-versions.outputs.nimversions }}"
+          python script.py >> $GITHUB_OUTPUT
+      - run: echo "${{ steps.set-nim-versions.outputs.NIMVERSIONS }}"
 
   specific:
     needs:
