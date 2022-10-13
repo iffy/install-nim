@@ -1,3 +1,8 @@
+# v4.3.0 - 2022-10-13
+
+- **NEW:** Support supplying `1.4` and `binary:1.4` instead of the full version string
+- **FIX:** Stop using now-deprecated set-output GitHub Actions command
+
 # v4.2.0 - 2022-09-27
 
 - **NEW:** Add `binary:1.6.8`
