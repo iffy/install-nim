@@ -12,6 +12,12 @@ format:
 
     $0 stable
     $0 1.4.0
+    $0 1.4
+  
+  From prebuilt, published binaries:
+  
+    $0 binary:1.4.0
+    $0 binary:1.4
   
   From a prebuilt nightly binary:
   
@@ -243,7 +249,7 @@ install_nightly() {
 install_binary() {
   version=${1}
   echo "install_binary $version"
-  URL="$(grep "^$version" "${THISDIR}/nightlies.txt" | cut -d' ' -f2 | head -n 1)"
+  URL="$(grep "^$version" "${THISDIR}/nightlies.txt" | cut -d' ' -f2 | tail -n 1)"
   if [ ! -z "$URL" ] && [ ! "$URL" == "none" ]; then
     echo "Found nightly URL for ${version}: ${URL}"
     install_nightly "$URL"
@@ -259,6 +265,11 @@ install_binary() {
 install_choosenim() {
   target="$1"
   echo "Installing via choosenim for: $target"
+  if [ "$(echo "${target}" | grep -o "\." | wc -l)" -lt 2 ]; then
+    # a "1.4" style version
+    target="$(grep "^${target}" "${THISDIR}/nightlies.txt" | cut -d' ' -f1 | tail -n 1)"
+    echo "Found version ${target}"
+  fi  
   export CHOOSENIM_NO_ANALYTICS=1
   export CHOOSENIM_CHOOSE_VERSION="$target"
   curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s -- -y

@@ -42,6 +42,8 @@ jobs:
             'stable',
             # 'devel',
             '1.4.0',
+            '1.6',
+            'binary:1.6',
             '0.20.0',
             'nightly:https://github.com/nim-lang/nightlies/releases/tag/2020-11-11-devel-bbe49a14ae827b6474d692042406716a3b3dd71f',
             'sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz',
