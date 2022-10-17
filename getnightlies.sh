@@ -80,7 +80,8 @@ for tag in $(git ls-remote --tags "${NIM_REPO}" | cut -f2 | grep '\^' | cut -d'^
   fi
 done
 # log "See $TMPOUT for output"
-mv "$TMPOUT" "$OUTFILE"
+cat "$TMPOUT" | sort -V > "$OUTFILE"
+rm "$TMPOUT"
 log "wrote: $OUTFILE"
 cat $OUTFILE
 exit "$RC"
