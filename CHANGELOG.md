@@ -1,3 +1,7 @@
+# v4.4.0 - 2022-10-17
+
+- **NEW:** You can now select `binary:stable` as a version to install
+
 # v4.3.1 - 2022-10-17
 
 - **FIX:** Sort nightlies
