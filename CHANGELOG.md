@@ -1,3 +1,7 @@
+# v4.3.1 - 2022-10-17
+
+- **FIX:** Sort nightlies
+
 # v4.3.0 - 2022-10-13
 
 - **NEW:** Support supplying `1.4` and `binary:1.4` instead of the full version string
