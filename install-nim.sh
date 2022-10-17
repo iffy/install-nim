@@ -13,11 +13,13 @@ format:
     $0 stable
     $0 1.4.0
     $0 1.4
+    $0 choosenim:stable
   
   From prebuilt, published binaries:
   
     $0 binary:1.4.0
     $0 binary:1.4
+    $0 binary:stable
   
   From a prebuilt nightly binary:
   
@@ -249,6 +251,10 @@ install_nightly() {
 install_binary() {
   version=${1}
   echo "install_binary $version"
+  if [ "$version" == "stable" ]; then
+    version=$(tail -n1 "${THISDIR}/nightlies.txt" | cut -d' ' -f1)
+    echo "stable -> ${version}"
+  fi
   URL="$(grep "^$version" "${THISDIR}/nightlies.txt" | cut -d' ' -f2 | tail -n 1)"
   if [ ! -z "$URL" ] && [ ! "$URL" == "none" ]; then
     echo "Found nightly URL for ${version}: ${URL}"

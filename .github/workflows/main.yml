@@ -40,6 +40,7 @@ jobs:
           import json
           versions = [
             'stable',
+            'binary:stable',
             # 'devel',
             '1.4.0',
             '1.6',
