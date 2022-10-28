@@ -32,7 +32,7 @@ jobs:
     strategy:
       matrix:
         version:
-          - stable
+          - binary:stable
           - devel
           - 1.4.0
           - 1.2.8
@@ -67,7 +67,7 @@ jobs:
 
 ## Speed
 
-If available, the fastest way to install is with the `binary:` tag (e.g. `binary:1.4.0`). See [nightlies.txt](nightlies.txt) for a list of available versions.
+If available, the fastest way to install is with the `binary:` tag (e.g. `binary:1.4.0` or `binary:stable`). See [nightlies.txt](nightlies.txt) for a list of available versions.
 
 ## Implementation
 
