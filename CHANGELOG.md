@@ -1,3 +1,7 @@
+# v4.5.0 - 2022-11-23
+
+- **NEW:** Add Nim 1.6.10
+
 # v4.4.0 - 2022-10-17
 
 - **NEW:** You can now select `binary:stable` as a version to install
