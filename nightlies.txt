@@ -47,3 +47,4 @@
 1.6.4 https://github.com/nim-lang/nightlies/releases/tag/2022-02-09-version-1-6-7994556f3804c217035c44b453a3feec64405758
 1.6.6 https://github.com/nim-lang/nightlies/releases/tag/2022-05-05-version-1-6-0565a70eab02122ce278b98181c7d1170870865c
 1.6.8 https://github.com/nim-lang/nightlies/releases/tag/2022-09-27-version-1-6-c9f46ca8c9eeca8b5f68591b1abe14b962f80a4c
+1.6.10 https://github.com/nim-lang/nightlies/releases/tag/2022-11-21-version-1-6-f1519259f85cbdf2d5ff617c6a5534fcd2ff6942
