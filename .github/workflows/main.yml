@@ -50,6 +50,7 @@ jobs:
             'sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz',
             'release:1.2.8',
             'git:bbe49a14ae827b6474d692042406716a3b3dd71f',
+            'git:bbe49a14ae827b6474d692042406716a3b3dd71f https://github.com/iffy/Nim.git',
           ]
           with io.open('nightlies.txt', 'r') as fh:
             for line in fh:
