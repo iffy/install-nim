@@ -190,8 +190,8 @@ install_release() {
 #------------------------------------------------
 install_git() {
   shalike=$1
-  url="$(echo "$shalike" | cut -d' ' -f2)"
-  shalike="$(echo "$shalike" | cut -d' ' -f1)"
+  url="$(echo "$shalike" | awk '{print $2;}')"
+  shalike="$(echo "$shalike" | awk '{print $1;}')"
   if [ -z "$url" ]; then
     url="https://github.com/nim-lang/Nim.git"
   fi
