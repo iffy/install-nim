@@ -38,6 +38,10 @@ format:
   
     $0 git:2382937843092342342556456
     $0 git:devel
+  
+  From a specific Git SHA or branch of your own Nim repo:
+
+    $0 'git:bbe49a14ae827b6474d692042406716a3b3dd71f https://github.com/iffy/Nim.git'
 
 Set NIMDIR=path/where/nim/will/be
 Set GITHUB_TOKEN= to a GitHub API Token generated at
@@ -186,8 +190,13 @@ install_release() {
 #------------------------------------------------
 install_git() {
   shalike=$1
-  echo "Installing from Git: ${shalike}"
-  git clone -n https://github.com/nim-lang/Nim.git "$NIMDIR"
+  url="$(echo "$shalike" | cut -d' ' -f2)"
+  shalike="$(echo "$shalike" | cut -d' ' -f1)"
+  if [ -z "$url" ]; then
+    url="https://github.com/nim-lang/Nim.git"
+  fi
+  echo "Installing from Git: ${shalike} from ${url}"
+  git clone -n "$url" "$NIMDIR"
   cd "$NIMDIR"
   git checkout "$shalike"
   ls -al
