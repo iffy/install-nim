@@ -1,3 +1,8 @@
+# v4.6.0 - 2023-02-17
+
+- **NEW:** Support installing from Git repos other than the official Nim repo
+- **FIX:** Enable `binary:1.2.6`
+
 # v4.5.0 - 2022-11-23
 
 - **NEW:** Add Nim 1.6.10
