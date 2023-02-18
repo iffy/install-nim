@@ -39,27 +39,27 @@ jobs:
           import io
           import json
           versions = [
-            # 'stable',
-            # 'binary:stable',
-            # # 'devel',
-            # '1.4.0',
-            # '1.6',
-            # 'binary:1.6',
-            # '0.20.0',
-            # 'nightly:https://github.com/nim-lang/nightlies/releases/tag/2020-11-11-devel-bbe49a14ae827b6474d692042406716a3b3dd71f',
-            # 'sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz',
-            # 'release:1.2.8',
-            # 'git:bbe49a14ae827b6474d692042406716a3b3dd71f',
+            'stable',
+            'binary:stable',
+            # 'devel',
+            '1.4.0',
+            '1.6',
+            'binary:1.6',
+            '0.20.0',
+            'nightly:https://github.com/nim-lang/nightlies/releases/tag/2020-11-11-devel-bbe49a14ae827b6474d692042406716a3b3dd71f',
+            'sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz',
+            'release:1.2.8',
+            'git:bbe49a14ae827b6474d692042406716a3b3dd71f',
             'git:v1.4.8',
             'git:v1.6.10',
-            # 'git:bbe49a14ae827b6474d692042406716a3b3dd71f https://github.com/iffy/Nim.git',
+            'git:bbe49a14ae827b6474d692042406716a3b3dd71f https://github.com/iffy/Nim.git',
           ]
-          # with io.open('nightlies.txt', 'r') as fh:
-          #   for line in fh:
-          #     if 'https' in line:
-          #       tag = 'binary:' + line.split()[0]
-          #       if tag not in versions:
-          #         versions.append(tag)
+          with io.open('nightlies.txt', 'r') as fh:
+            for line in fh:
+              if 'https' in line:
+                tag = 'binary:' + line.split()[0]
+                if tag not in versions:
+                  versions.append(tag)
           print("NIMVERSIONS=" + json.dumps(versions))
           EOF
           python script.py >> $GITHUB_OUTPUT
@@ -75,8 +75,8 @@ jobs:
       fail-fast: false
       matrix:
         os: 
-        # - ubuntu-latest
-        # - macOS-latest
+        - ubuntu-latest
+        - macOS-latest
         - windows-latest
         nim: ${{ fromJson(needs.matrix_prep.outputs.nimversions) }}
     steps:
