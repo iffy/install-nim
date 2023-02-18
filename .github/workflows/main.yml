@@ -51,6 +51,7 @@ jobs:
             # 'release:1.2.8',
             # 'git:bbe49a14ae827b6474d692042406716a3b3dd71f',
             'git:v1.4.8',
+            'git:v1.6.0',
             'git:v1.6.2',
             'git:v1.6.4',
             'git:v1.6.6',
