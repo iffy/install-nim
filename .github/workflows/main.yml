@@ -50,6 +50,8 @@ jobs:
             'sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz',
             'release:1.2.8',
             'git:bbe49a14ae827b6474d692042406716a3b3dd71f',
+            'git:v1.4.8',
+            'git:v1.6.10',
             'git:bbe49a14ae827b6474d692042406716a3b3dd71f https://github.com/iffy/Nim.git',
           ]
           with io.open('nightlies.txt', 'r') as fh:
@@ -70,8 +72,12 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     strategy:
+      fail-fast: true
       matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: 
+        - ubuntu-latest
+        - macOS-latest
+        - windows-latest
         nim: ${{ fromJson(needs.matrix_prep.outputs.nimversions) }}
     steps:
       - uses: actions/checkout@v1

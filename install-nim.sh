@@ -2,6 +2,7 @@
 # Heavily borrowed from https://github.com/alaviss/setup-nim/blob/master/setup.sh
 # So I guess that makes this GPL?  Can someone add a license here if it's needed.
 
+
 usage() {
   cat <<EOF
 This script will install Nim for GitHub Actions from a variety of
@@ -69,6 +70,26 @@ add-path() {
   fi
 }
 
+osname() {
+  case "$(uname -sr)" in
+    Darwin*)
+      echo 'macos'
+      ;;
+    Linux*Microsoft*)
+      echo 'wsl'  # Windows Subsystem for Linux
+      ;;
+    Linux*)
+      echo 'linux'
+      ;;
+    CYGWIN*|MINGW*|MINGW32*|MSYS*)
+      echo 'windows'
+      ;;
+    *)
+      echo 'other' 
+      ;;
+  esac
+}
+
 guess_archive_name() {
   # Guess the archive name 
   local ext=.tar.xz
@@ -125,9 +146,16 @@ unpack_prebuilt() {
 }
 
 build_nim() {
-  if [ -e build.sh ]; then
+  OSNAME="$(osname)"
+  echo "$OSNAME"
+  if [ -e ci/build_autogen.bat ] && [ "$OSNAME" == "windows" ]; then
+    echo "Using build_autogen.bat"
+    ci/build_autogen.bat
+  elif [ -e build.sh ]; then
+    echo "Using build.sh"
     sh build.sh
   else
+    echo "Using build_all.sh"
     sh build_all.sh
   fi
   bin/nim c koch
