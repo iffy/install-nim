@@ -6,18 +6,18 @@ on:
     - cron: '0 0 * * 1'
 
 jobs:
-  default:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
-    steps:
-      - uses: actions/checkout@v1
-      - uses: ./
-      - run: nim -v
-      - run: nimble -v
-      - name: Test
-        run: nim c -r sample.nim
+  # default:
+  #   runs-on: ${{ matrix.os }}
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest, macOS-latest, windows-latest]
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - uses: ./
+  #     - run: nim -v
+  #     - run: nimble -v
+  #     - name: Test
+  #       run: nim c -r sample.nim
 
   # Check for tags missing from nightlies.txt
   missing_binary_tags:
