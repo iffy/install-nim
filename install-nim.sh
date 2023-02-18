@@ -127,9 +127,15 @@ unpack_prebuilt() {
 }
 
 build_nim() {
-  if [ -e build.sh ]; then
+  uname
+  if [ -e ci/build_autogen.bat ] && [ "$(uname)" == "Windows" ]; then
+    echo "Using build_autogen.bat"
+    ci/build_autogen.bat
+  elif [ -e build.sh ]; then
+    echo "Using build.sh"
     sh build.sh
   else
+    echo "Using build_all.sh"
     sh build_all.sh
   fi
   bin/nim c koch
@@ -201,7 +207,8 @@ install_git() {
   git clone -n "$url" "$NIMDIR"
   cd "$NIMDIR"
   git checkout "$shalike"
-  ls -alR
+  uname
+  ls -al
   build_nim
 }
 
