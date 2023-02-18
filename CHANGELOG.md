@@ -1,3 +1,7 @@
+# v4.6.1 - 2023-02-18
+
+- **FIX:** Fix installing from source on Windows for versions 1.6.x and greater
+
 # v4.6.0 - 2023-02-17
 
 - **NEW:** Support installing from Git repos other than the official Nim repo
