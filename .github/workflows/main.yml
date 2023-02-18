@@ -53,12 +53,12 @@ jobs:
             'git:v1.6.10',
             # 'git:bbe49a14ae827b6474d692042406716a3b3dd71f https://github.com/iffy/Nim.git',
           ]
-          with io.open('nightlies.txt', 'r') as fh:
-            for line in fh:
-              if 'https' in line:
-                tag = 'binary:' + line.split()[0]
-                if tag not in versions:
-                  versions.append(tag)
+          # with io.open('nightlies.txt', 'r') as fh:
+          #   for line in fh:
+          #     if 'https' in line:
+          #       tag = 'binary:' + line.split()[0]
+          #       if tag not in versions:
+          #         versions.append(tag)
           print("NIMVERSIONS=" + json.dumps(versions))
           EOF
           python script.py >> $GITHUB_OUTPUT
