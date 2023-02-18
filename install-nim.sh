@@ -71,6 +71,26 @@ add-path() {
   fi
 }
 
+osname() {
+  case "$(uname -sr)" in
+    Darwin*)
+      echo 'macos'
+      ;;
+    Linux*Microsoft*)
+      echo 'wsl'  # Windows Subsystem for Linux
+      ;;
+    Linux*)
+      echo 'linux'
+      ;;
+    CYGWIN*|MINGW*|MINGW32*|MSYS*)
+      echo 'windows'
+      ;;
+    *)
+      echo 'other' 
+      ;;
+  esac
+}
+
 guess_archive_name() {
   # Guess the archive name 
   local ext=.tar.xz
@@ -127,8 +147,9 @@ unpack_prebuilt() {
 }
 
 build_nim() {
-  uname
-  if [ -e ci/build_autogen.bat ] && [ "$(uname)" == "Windows" ]; then
+  OSNAME="$(osname)"
+  echo "$OSNAME"
+  if [ -e ci/build_autogen.bat ] && [ "$OSNAME" == "windows" ]; then
     echo "Using build_autogen.bat"
     ci/build_autogen.bat
   elif [ -e build.sh ]; then
