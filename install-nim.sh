@@ -2,6 +2,8 @@
 # Heavily borrowed from https://github.com/alaviss/setup-nim/blob/master/setup.sh
 # So I guess that makes this GPL?  Can someone add a license here if it's needed.
 
+set -x
+
 usage() {
   cat <<EOF
 This script will install Nim for GitHub Actions from a variety of
@@ -199,7 +201,7 @@ install_git() {
   git clone -n "$url" "$NIMDIR"
   cd "$NIMDIR"
   git checkout "$shalike"
-  ls -al
+  ls -alR
   build_nim
 }
 
