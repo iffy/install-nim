@@ -2,7 +2,6 @@
 # Heavily borrowed from https://github.com/alaviss/setup-nim/blob/master/setup.sh
 # So I guess that makes this GPL?  Can someone add a license here if it's needed.
 
-set -x
 
 usage() {
   cat <<EOF
@@ -228,7 +227,6 @@ install_git() {
   git clone -n "$url" "$NIMDIR"
   cd "$NIMDIR"
   git checkout "$shalike"
-  uname
   ls -al
   build_nim
 }
