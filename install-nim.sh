@@ -261,7 +261,9 @@ install_nightly() {
   local archive_url; archive_url=
   tag=${url##*/}
   echo "tag=$tag"
-  nightlydataurl="https://api.github.com/repos/nim-lang/nightlies/releases/tags/$tag"
+  repo="$(echo $url | cut -d/ -f4-5)"
+  echo "repo=$repo"
+  nightlydataurl="https://api.github.com/repos/${repo}/releases/tags/${tag}"
   AUTHARGS=()
   if [ ! -z "$GITHUB_TOKEN" ]; then
     echo "Using GITHUB_TOKEN for authenticated request"
