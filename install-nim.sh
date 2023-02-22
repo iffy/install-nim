@@ -279,7 +279,6 @@ install_nightly() {
   fi
   echo "archive_url=$archive_url"
   unpack_prebuilt "$archive_url"
-  rm nightlydata.json
 }
 
 #------------------------------------------------
