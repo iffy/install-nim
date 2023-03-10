@@ -1,3 +1,8 @@
+# v4.7.0 - 2023-03-10
+
+- **NEW:** Add `binary:1.6.12`
+- **FIX:** You can now install nightlies from a URL other than the official Nim URL
+
 # v4.6.1 - 2023-02-18
 
 - **FIX:** Fix installing from source on Windows for versions 1.6.x and greater
