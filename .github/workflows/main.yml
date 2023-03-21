@@ -16,12 +16,12 @@ jobs:
           # - os: macOS-latest
           # - os: windows-latest
           - os: ubuntu-latest
+            container:
+              image: ubuntu:18.04
             extrasetup: |
               echo hi
               apt-get update -qqq
-              apt-get install -y curl
-            container:
-              image: ubuntu:18.04
+              apt-get install -y curl build-essential
     steps:
       - uses: actions/checkout@v1
       - run: |
