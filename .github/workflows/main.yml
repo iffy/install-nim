@@ -16,6 +16,10 @@ jobs:
           # - os: macOS-latest
           # - os: windows-latest
           - os: ubuntu-latest
+            extrasetup: |
+              echo hi
+              apt-get update -qqq
+              apt-get install -y curl
             container:
               image: ubuntu:18.04
     steps:
@@ -26,6 +30,9 @@ jobs:
           env
           pwd
           uname -a
+      - name: Extra setup
+        shell: bash
+        run: ${{ matrix.extrasetup }}
       - uses: ./
       - run: nim -v
       - run: nimble -v
