@@ -23,12 +23,6 @@ jobs:
               apt-get install -y curl build-essential
     steps:
       - uses: actions/checkout@v1
-      - run: |
-          set -x
-          ls -alR
-          env
-          pwd
-          uname -a
       - name: Extra setup
         shell: bash
         run: ${{ matrix.extrasetup }}
