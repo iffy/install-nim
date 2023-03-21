@@ -51,7 +51,7 @@ EOF
 }
 set +x
 abspath() {
-  echo "$(cd "$(dirname -- "$1")" >/dev/null; pwd -P)/$(basename -- "$1")"
+  python -c "import os; import sys; print(os.path.realpath(sys.argv[1]))" "$1"
 }
 
 NIMDIR=${NIMDIR:-nimdir}
