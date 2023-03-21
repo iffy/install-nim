@@ -15,4 +15,4 @@ runs:
     shell: bash
     run: |
       export SHELL=/bin/bash
-      '${{ github.action_path }}/install-nim.sh' '${{ inputs.version }}'
+      "${GITHUB_ACTION_PATH}/install-nim.sh" '${{ inputs.version }}'
