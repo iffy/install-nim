@@ -8,11 +8,24 @@ on:
 jobs:
   default:
     runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+          - os: macOS-latest
+          - os: windows-latest
+          - os: ubuntu-latest
+            container:
+              image: ubuntu:18.04
+            extrasetup: |
+              apt-get update -qqq
+              apt-get install -y curl build-essential
     steps:
       - uses: actions/checkout@v1
+      - name: Extra setup
+        shell: bash
+        run: ${{ matrix.extrasetup }}
       - uses: ./
       - run: nim -v
       - run: nimble -v
