@@ -2,6 +2,37 @@ Github Action to install Nim.
 
 Put the following in `.github/workflows/tests.yml`
 
+## Fastest, complete example:
+
+```yaml
+on:
+  pull_request:
+  push:
+
+jobs:
+  tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        nimversion:
+          - binary:stable
+        os:
+          - ubuntu-latest
+          - macOS-latest
+          - windows-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: iffy/install-nim@v4
+      with:
+        version: ${{ matrix.nimversion }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Test
+      run: |
+        nimble install -y
+        nimble test
+```
+
 ## Use latest stable Nim version
 
 ```yaml
