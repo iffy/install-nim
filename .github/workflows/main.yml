@@ -69,6 +69,7 @@ jobs:
     needs:
       - matrix_prep
     runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     strategy:
@@ -79,6 +80,10 @@ jobs:
         - macOS-latest
         - windows-latest
         nim: ${{ fromJson(needs.matrix_prep.outputs.nimversions) }}
+        include:
+          - os: ubuntu-latest
+            container:
+              image: ubuntu:18.04
     steps:
       - uses: actions/checkout@v1
       - uses: ./
