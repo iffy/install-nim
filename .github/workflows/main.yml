@@ -8,9 +8,16 @@ on:
 jobs:
   default:
     runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+          - os: macOS-latest
+          - os: windows-latest
+          - os: ubuntu-latest
+            container:
+              image: ubuntu:18.04
     steps:
       - uses: actions/checkout@v1
       - uses: ./
@@ -65,41 +72,36 @@ jobs:
           python script.py >> $GITHUB_OUTPUT
       - run: echo "${{ steps.set-nim-versions.outputs.NIMVERSIONS }}"
 
-  specific:
-    needs:
-      - matrix_prep
-    runs-on: ${{ matrix.os }}
-    container: ${{ matrix.container }}
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      fail-fast: true
-      matrix:
-        os: 
-        - ubuntu-latest
-        - macOS-latest
-        - windows-latest
-        nim: ${{ fromJson(needs.matrix_prep.outputs.nimversions) }}
-        include:
-          - os: ubuntu-latest
-            container:
-              image: ubuntu:18.04
-    steps:
-      - uses: actions/checkout@v1
-      - uses: ./
-        with:
-          version: ${{ matrix.nim }}
-      - run: nim -v
-      - run: nimble -v
-      - name: Test
-        run: nim c -r sample.nim
-      - name: Test installed executable
-        shell: bash
-        run: |
-          set -x
-          echo $PATH
-          cd .github/workflows/sampleproj
-          nimble install --verbose -y
-          nimble path sampleproj
-          hello
+  # specific:
+  #   needs:
+  #     - matrix_prep
+  #   runs-on: ${{ matrix.os }}
+  #   env:
+  #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #   strategy:
+  #     fail-fast: true
+  #     matrix:
+  #       os: 
+  #       - ubuntu-latest
+  #       - macOS-latest
+  #       - windows-latest
+  #       nim: ${{ fromJson(needs.matrix_prep.outputs.nimversions) }}
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - uses: ./
+  #       with:
+  #         version: ${{ matrix.nim }}
+  #     - run: nim -v
+  #     - run: nimble -v
+  #     - name: Test
+  #       run: nim c -r sample.nim
+  #     - name: Test installed executable
+  #       shell: bash
+  #       run: |
+  #         set -x
+  #         echo $PATH
+  #         cd .github/workflows/sampleproj
+  #         nimble install --verbose -y
+  #         nimble path sampleproj
+  #         hello
   
