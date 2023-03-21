@@ -12,14 +12,20 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-latest
-          - os: macOS-latest
-          - os: windows-latest
+          # - os: ubuntu-latest
+          # - os: macOS-latest
+          # - os: windows-latest
           - os: ubuntu-latest
             container:
               image: ubuntu:18.04
     steps:
       - uses: actions/checkout@v1
+      - run: |
+          set -x
+          ls -alR
+          env
+          pwd
+          uname -a
       - uses: ./
       - run: nim -v
       - run: nimble -v
