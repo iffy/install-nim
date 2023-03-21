@@ -1,3 +1,7 @@
+# v4.7.1 - 2023-03-21
+
+- **FIX:** Allow installing Nim within a container in GitHub Actions
+
 # v4.7.0 - 2023-03-10
 
 - **NEW:** Add `binary:1.6.12`
