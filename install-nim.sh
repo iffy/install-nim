@@ -67,6 +67,9 @@ add-path() {
     # Running on Azure Pipelines
     echo "##vso[task.prependpath]$1"
     echo "Directory '$1' has been added to PATH."
+  else
+    # Tell the user to add the path
+    echo "export PATH="'"'"\${PATH}:$1"'"'""
   fi
 }
 
