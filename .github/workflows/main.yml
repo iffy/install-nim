@@ -66,6 +66,8 @@ jobs:
             'git:v1.4.8',
             'git:v1.6.10',
             'git:bbe49a14ae827b6474d692042406716a3b3dd71f https://github.com/iffy/Nim.git',
+            # v2.0 RC2
+            'nightly:https://github.com/nim-lang/nightlies/releases/tag/2023-03-31-version-2-0-2e4ba4ad93c6d9021b6de975cf7ac78e67acba26',
           ]
           with io.open('nightlies.txt', 'r') as fh:
             for line in fh:
