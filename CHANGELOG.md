@@ -1,3 +1,8 @@
+# v4.7.2 - 2023-07-03
+
+- **FIX:** When run outside of CI, inform the user what needs to be added to the PATH
+- **FIX:** Add nightly for v1.6.14
+
 # v4.7.1 - 2023-03-21
 
 - **FIX:** Allow installing Nim within a container in GitHub Actions
