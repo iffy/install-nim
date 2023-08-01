@@ -54,11 +54,11 @@ jobs:
           versions = [
             'stable',
             'binary:stable',
-            # 'devel',
-            '1.4.0',
+            '2.0',
+            'binary:2.0',
             '1.6',
             'binary:1.6',
-            '0.20.0',
+            '1.4.0',
             'nightly:https://github.com/nim-lang/nightlies/releases/tag/2020-11-11-devel-bbe49a14ae827b6474d692042406716a3b3dd71f',
             'sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz',
             'release:1.2.8',
@@ -66,6 +66,7 @@ jobs:
             'git:v1.4.8',
             'git:v1.6.10',
             'git:bbe49a14ae827b6474d692042406716a3b3dd71f https://github.com/iffy/Nim.git',
+            '0.20.0',
           ]
           with io.open('nightlies.txt', 'r') as fh:
             for line in fh:
