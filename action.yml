@@ -7,6 +7,8 @@ branding:
 inputs:
   version:
     default: stable
+  fallback:
+    default: ''
 
 runs:
   using: composite
@@ -15,4 +17,4 @@ runs:
     shell: bash
     run: |
       export SHELL=/bin/bash
-      "${GITHUB_ACTION_PATH}/install-nim.sh" '${{ inputs.version }}'
+      "${GITHUB_ACTION_PATH}/install-nim.sh" '${{ inputs.version }}' '${{ inputs.fallback }}'
