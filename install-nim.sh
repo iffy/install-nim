@@ -7,7 +7,8 @@ usage() {
   cat <<EOF
 This script will install Nim for GitHub Actions from a variety of
 sources.  Provide a single command-line argument of the following
-format:
+format. Or provide multiple arguments to try each installation target
+until one succeeds:
 
   Using choosenim:
 
@@ -331,47 +332,61 @@ install_choosenim() {
   chmod u+x "${HOME}"/.choosenim/toolchains/*/bin/*
 }
 
+do_installation() {
+  TARGET="$1"
+  install_type=$(echo "$TARGET" | cut -d: -f1)
+  install_arg=$(echo "$TARGET" | cut -d: -f2-)
+  if [ "$install_type" == "$install_arg" ]; then
+    install_type="choosenim"
+  fi
+
+  #------------------------------------------------
+  # Install Nim
+  #------------------------------------------------
+  echo "Install type: $install_type"
+  echo "       param: $install_arg"
+  (install_${install_type} "${install_arg}")
+
+  #------------------------------------------------
+  # Set up PATH
+  #------------------------------------------------
+  echo "Setting up PATH"
+  [ -f "$NIMDIR/bin/nim" ] && add-path "$(abspath "$NIMDIR/bin")"
+  [ -f "$(pwd)/$NIMDIR/bin/nim" ] && add-path "$(pwd)/$NIMDIR/bin"
+  add-path "$HOME/.nimble/bin" && add-path "$(abspath "$HOME/.nimble/bin")"
+  #[ -f "$HOME/.nimble/bin/nim" ] && add-path "$HOME/.nimble/bin" && add-path "$(abspath "$HOME/.nimble/bin")"
+
+
+  #------------------------------------------------
+  # DLLs
+  #------------------------------------------------
+  if [ -f "$HOME/.nimble/bin/nim" ]; then
+    ensure_dlls "$HOME/.nimble/bin"
+  elif [ -f "$NIMDIR/bin/nim" ]; then
+    ensure_dlls "$NIMDIR/bin"
+  else
+    echo "Nim doesn't seem to have been installed"
+  fi
+}
+
 #------------------------------------------------
 # main
 #------------------------------------------------
 set -e
-TARGET=$1
-if [ -z "$TARGET" ]; then
+TARGETS="$@"
+if [ -z "$TARGETS" ]; then
   usage
   exit 1
 fi
-
-install_type=$(echo "$TARGET" | cut -d: -f1)
-install_arg=$(echo "$TARGET" | cut -d: -f2-)
-if [ "$install_type" == "$install_arg" ]; then
-  install_type="choosenim"
-fi
-
-#------------------------------------------------
-# Install Nim
-#------------------------------------------------
-echo "Install type: $install_type"
-echo "       param: $install_arg"
-(install_${install_type} "${install_arg}")
-
-#------------------------------------------------
-# Set up PATH
-#------------------------------------------------
-echo "Setting up PATH"
-[ -f "$NIMDIR/bin/nim" ] && add-path "$(abspath "$NIMDIR/bin")"
-[ -f "$(pwd)/$NIMDIR/bin/nim" ] && add-path "$(pwd)/$NIMDIR/bin"
-add-path "$HOME/.nimble/bin" && add-path "$(abspath "$HOME/.nimble/bin")"
-#[ -f "$HOME/.nimble/bin/nim" ] && add-path "$HOME/.nimble/bin" && add-path "$(abspath "$HOME/.nimble/bin")"
-
-
-#------------------------------------------------
-# DLLs
-#------------------------------------------------
-if [ -f "$HOME/.nimble/bin/nim" ]; then
-  ensure_dlls "$HOME/.nimble/bin"
-elif [ -f "$NIMDIR/bin/nim" ]; then
-  ensure_dlls "$NIMDIR/bin"
-else
-  echo "Nim doesn't seem to have been installed"
-fi
-
+RC=1
+for TARGET in $TARGETS; do
+  if [ -z "$TARGET" ]; then
+    break
+  fi
+  echo "Trying $TARGET ..."
+  if do_installation "$TARGET"; then
+    RC=0
+    break
+  fi
+done
+exit "$RC"

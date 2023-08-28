@@ -86,6 +86,24 @@ jobs:
         nimble test
 ```
 
+## Fallback to a different install method
+
+```yaml
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: iffy/install-nim@v4
+      with:
+        version: binary:stable
+        fallback: git:2382937843092342342556456
+    - name: Test
+      run: |
+        nimble install -y
+        nimble test
+```
+
 If you run into trouble with GitHub rate limits, set the `GITHUB_TOKEN` environment variable like this:
 
 ```yaml
