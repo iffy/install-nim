@@ -51,7 +51,7 @@ EOF
 }
 set +x
 abspath() {
-  python -c "import os; import sys; print(os.path.realpath(sys.argv[1]))" "$1"
+  readlink -m "$1" || python -c "import os; import sys; print(os.path.realpath(sys.argv[1]))" "$1"
 }
 
 NIMDIR=${NIMDIR:-nimdir}
