@@ -60,6 +60,7 @@ abspath() {
     echo "$thepath"
   elif [ "$ch2" == ":" ]; then
     # already absolute Windows path
+    echo "$thepath"
   else
     echo "$(pwd)/${thepath}"
   fi
