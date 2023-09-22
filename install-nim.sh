@@ -421,11 +421,13 @@ if [ -f "$NIMDIR/bin/nim" ]; then
   if iswindows; then
     add-path "$(windowspath "$(abspath "$NIMDIR/bin")")"
   fi
+fi
 if [ -f "$(pwd)/$NIMDIR/bin/nim" ]; then
   add-path "$(pwd)/$NIMDIR/bin"
   if iswindows; then
     add-path "$(windowspath "$(pwd)/$NIMDIR/bin")"
   fi
+fi
 add-path "$HOME/.nimble/bin"
 add-path "$(abspath "$HOME/.nimble/bin")"
 if iswindows; then
