@@ -1,1 +1,1 @@
-Remove Python dependency when `readlink -m` is available
+Remove Python dependency when for computing absolute paths.
