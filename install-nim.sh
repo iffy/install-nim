@@ -58,7 +58,22 @@ abspath() {
   echo "$RET"
 }
 windowspath() {
-  wslpath -w "$1"
+  # /c/Users/runneradmin/.nimble/bin -> C:\Users\runneradmin\.nimble\bin
+  thepath="$1"
+  ch1="$(echo $thepath | cut -c1)"
+  ch2="$(echo $thepath | cut -c2)"
+  ch3="$(echo $thepath | cut -c3)"
+  if [ "$ch1" == "/" ]; then
+    # absolute linux-like path
+    rest="$(echo "$thepath" | cut -c4- | sed -e 's_/_\\_g')"
+    echo "${ch2^}:\\${rest}"
+  elif [ "$ch2" == ":" ] && [ "$ch3" == "\\" ]; then
+    # X:\ style windows path
+    echo "$thepath"
+  else
+    # relative path?
+    echo "$thepath" | sed -e 's_/_\\_g'
+  fi
 }
 iswindows() {
   if [ "$(osname)" == "windows" ]; then
