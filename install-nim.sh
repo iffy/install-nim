@@ -51,7 +51,7 @@ EOF
 }
 set +x
 abspath() {
-  readlink -m "$1" || python -c "import os; import sys; print(os.path.realpath(sys.argv[1]))" "$1"
+  echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
 }
 
 NIMDIR=${NIMDIR:-nimdir}
