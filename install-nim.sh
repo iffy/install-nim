@@ -51,11 +51,23 @@ EOF
 }
 set +x
 abspath() {
-  echo "Computing abspath of $1" 1>&2
+  echo "----- Computing abspath of $1" 1>&2
   python -c "import os; import sys; print(os.path.realpath(sys.argv[1]))" "$1" 1>&2
   RET="$(echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")")"
   echo "$RET" 1>&2
   echo "$RET"
+}
+windowspath() {
+  if which wslpath 2>/dev/null; then
+    wslpath -w "$1"
+  fi
+}
+iswindows() {
+  if [ "$(osname)" == "windows" ]; then
+    return 0
+  else
+    return 1
+  fi
 }
 
 NIMDIR=${NIMDIR:-nimdir}
@@ -327,6 +339,7 @@ install_choosenim() {
   curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s -- -y
   add-path "$HOME/.nimble/bin"
   add-path "$(abspath "$HOME/.nimble/bin")"
+  iswindows && add-path "$(windowspath "$HOME/.nimble/bin")"
 
   #------------------------------------------------
   # Temporary workaround for https://github.com/dom96/choosenim/issues/272
@@ -362,9 +375,15 @@ echo "       param: $install_arg"
 # Set up PATH
 #------------------------------------------------
 echo "Setting up PATH"
-[ -f "$NIMDIR/bin/nim" ] && add-path "$(abspath "$NIMDIR/bin")"
-[ -f "$(pwd)/$NIMDIR/bin/nim" ] && add-path "$(pwd)/$NIMDIR/bin"
-add-path "$HOME/.nimble/bin" && add-path "$(abspath "$HOME/.nimble/bin")"
+[ -f "$NIMDIR/bin/nim" ] \
+  && add-path "$(abspath "$NIMDIR/bin")" \
+  && (iswindows && add-path "$(windowspath "$NIMDIR/bin")")
+[ -f "$(pwd)/$NIMDIR/bin/nim" ] \
+  && add-path "$(pwd)/$NIMDIR/bin" \
+  && (iswindows && add-path "$(pwd)/$NIMDIR/bin")
+add-path "$HOME/.nimble/bin"
+add-path "$(abspath "$HOME/.nimble/bin")"
+iswindows && add-path "$(abspath "$HOME/.nimble/bin")"
 #[ -f "$HOME/.nimble/bin/nim" ] && add-path "$HOME/.nimble/bin" && add-path "$(abspath "$HOME/.nimble/bin")"
 
 
