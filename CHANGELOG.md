@@ -1,8 +1,6 @@
 # v4.7.3 - 2023-08-01
 
 - **FIX:** Support Nim v2.0.0 ([#38](https://github.com/iffy/install-nim/issues/38))
-- **FIX:** When run outside of CI, inform the user what needs to be added to the PATH
-- **FIX:** Add nightly for v1.6.14
 
 # v4.7.2 - 2023-07-03
 
