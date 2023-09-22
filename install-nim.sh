@@ -51,7 +51,36 @@ EOF
 }
 set +x
 abspath() {
-  echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
+  thepath="$1"
+  ch1="$(echo $thepath | cut -c1)"
+  ch2="$(echo $thepath | cut -c2)"
+  ch3="$(echo $thepath | cut -c3)"
+  if [ "$ch1" == "/" ]; then
+    # already absolute linux path
+    echo "$thepath"
+  elif [ "$ch2" == ":" ]; then
+    # already absolute Windows path
+  else
+    echo "$(pwd)/${thepath}"
+  fi
+}
+linuxpath() {
+  # C:\Users\runneradmin\.nimble\bin -> /c/Users/runneradmin/.nimble/bin
+  thepath="$1"
+  ch1="$(echo $thepath | cut -c1)"
+  ch2="$(echo $thepath | cut -c2)"
+  ch3="$(echo $thepath | cut -c3)"
+  if [ "$ch1" == "/" ]; then
+    # Absolute linux path
+    echo "$thepath"
+  elif [ "$ch2" == ":" ] && [ "$ch3" == "\\" ]; then
+    # X:\ style absolute windows path
+    rest="$(echo "$thepath" | cut -c4- | sed -e 's_\\_/_g')"
+    echo "/${ch2}/${rest}"
+  else
+    # relative path
+    echo "$thepath" | sed -e 's_\\_/_g'
+  fi
 }
 windowspath() {
   # /c/Users/runneradmin/.nimble/bin -> C:\Users\runneradmin\.nimble\bin
