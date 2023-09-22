@@ -51,11 +51,7 @@ EOF
 }
 set +x
 abspath() {
-  echo "----- Computing abspath of $1" 1>&2
-  python -c "import os; import sys; print(os.path.realpath(sys.argv[1]))" "$1" 1>&2
-  RET="$(echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")")"
-  echo "$RET" 1>&2
-  echo "$RET"
+  echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
 }
 windowspath() {
   # /c/Users/runneradmin/.nimble/bin -> C:\Users\runneradmin\.nimble\bin
