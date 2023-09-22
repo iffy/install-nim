@@ -1,3 +1,7 @@
+# v5.0.0 - 2023-09-22
+
+- **BREAKING CHANGE:** Remove Python dependency when for computing absolute paths. This is listed as breaking as a precaution -- all the existing tests still pass.
+
 # v4.7.3 - 2023-08-01
 
 - **FIX:** Support Nim v2.0.0 ([#38](https://github.com/iffy/install-nim/issues/38))
