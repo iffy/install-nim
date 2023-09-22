@@ -58,9 +58,7 @@ abspath() {
   echo "$RET"
 }
 windowspath() {
-  if which wslpath 2>/dev/null; then
-    wslpath -w "$1"
-  fi
+  wslpath -w "$1"
 }
 iswindows() {
   if [ "$(osname)" == "windows" ]; then
