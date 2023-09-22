@@ -378,7 +378,9 @@ install_choosenim() {
   curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s -- -y
   add-path "$HOME/.nimble/bin"
   add-path "$(abspath "$HOME/.nimble/bin")"
-  if iswindows; then add-path "$(windowspath "$HOME/.nimble/bin")"; fi
+  if iswindows; then
+    add-path "$(windowspath "$(abspath "$HOME/.nimble/bin")")"
+  fi
 
   #------------------------------------------------
   # Temporary workaround for https://github.com/dom96/choosenim/issues/272
@@ -414,15 +416,21 @@ echo "       param: $install_arg"
 # Set up PATH
 #------------------------------------------------
 echo "Setting up PATH"
-[ -f "$NIMDIR/bin/nim" ] \
-  && add-path "$(abspath "$NIMDIR/bin")" \
-  && if iswindows; then add-path "$(windowspath "$NIMDIR/bin")"; fi
-[ -f "$(pwd)/$NIMDIR/bin/nim" ] \
-  && add-path "$(pwd)/$NIMDIR/bin" \
-  && if iswindows; then add-path "$(pwd)/$NIMDIR/bin"; fi
+if [ -f "$NIMDIR/bin/nim" ]; then
+  add-path "$(abspath "$NIMDIR/bin")"
+  if iswindows; then
+    add-path "$(windowspath "$(abspath "$NIMDIR/bin")")"
+  fi
+if [ -f "$(pwd)/$NIMDIR/bin/nim" ]; then
+  add-path "$(pwd)/$NIMDIR/bin"
+  if iswindows; then
+    add-path "$(windowspath "$(pwd)/$NIMDIR/bin")"
+  fi
 add-path "$HOME/.nimble/bin"
 add-path "$(abspath "$HOME/.nimble/bin")"
-if iswindows; then add-path "$(abspath "$HOME/.nimble/bin")"; fi
+if iswindows; then
+  add-path "$(windowspath "$(abspath "$HOME/.nimble/bin")")"
+fi
 #[ -f "$HOME/.nimble/bin/nim" ] && add-path "$HOME/.nimble/bin" && add-path "$(abspath "$HOME/.nimble/bin")"
 
 
