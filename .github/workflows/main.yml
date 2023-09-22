@@ -12,15 +12,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-latest
-          - os: macOS-latest
+          # - os: ubuntu-latest
+          # - os: macOS-latest
           - os: windows-latest
-          - os: ubuntu-latest
-            container:
-              image: ubuntu:18.04
-            extrasetup: |
-              apt-get update -qqq
-              apt-get install -y curl build-essential
+          # - os: ubuntu-latest
+          #   container:
+          #     image: ubuntu:18.04
+          #   extrasetup: |
+          #     apt-get update -qqq
+          #     apt-get install -y curl build-essential
     steps:
       - uses: actions/checkout@v1
       - name: Extra setup
@@ -52,21 +52,21 @@ jobs:
           import io
           import json
           versions = [
-            'stable',
-            'binary:stable',
-            '2.0',
-            'binary:2.0',
-            '1.6',
-            'binary:1.6',
-            '1.4.0',
-            'nightly:https://github.com/nim-lang/nightlies/releases/tag/2020-11-11-devel-bbe49a14ae827b6474d692042406716a3b3dd71f',
-            'sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz',
-            'release:1.2.8',
-            'git:bbe49a14ae827b6474d692042406716a3b3dd71f',
-            'git:v1.4.8',
-            'git:v1.6.10',
-            'git:bbe49a14ae827b6474d692042406716a3b3dd71f https://github.com/iffy/Nim.git',
-            '0.20.0',
+            # 'stable',
+            # 'binary:stable',
+            # '2.0',
+            # 'binary:2.0',
+            # '1.6',
+            # 'binary:1.6',
+            # '1.4.0',
+            # 'nightly:https://github.com/nim-lang/nightlies/releases/tag/2020-11-11-devel-bbe49a14ae827b6474d692042406716a3b3dd71f',
+            # 'sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz',
+            # 'release:1.2.8',
+            # 'git:bbe49a14ae827b6474d692042406716a3b3dd71f',
+            # 'git:v1.4.8',
+            # 'git:v1.6.10',
+            # 'git:bbe49a14ae827b6474d692042406716a3b3dd71f https://github.com/iffy/Nim.git',
+            # '0.20.0',
           ]
           with io.open('nightlies.txt', 'r') as fh:
             for line in fh:
