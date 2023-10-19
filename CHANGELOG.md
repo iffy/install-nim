@@ -1,3 +1,7 @@
+# v5.0.1 - 2023-10-18
+
+- **FIX:** Add `binary:1.6.16`
+
 # v5.0.0 - 2023-09-22
 
 - **BREAKING CHANGE:** Remove Python dependency when for computing absolute paths. This is listed as breaking as a precaution -- all the existing tests still pass.
