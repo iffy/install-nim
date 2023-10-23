@@ -1,3 +1,7 @@
+# v5.0.2 - 2023-10-23
+
+- **FIX:** Use GITHUB_TOKEN authentication when downloading prebuilt binaries
+
 # v5.0.1 - 2023-10-18
 
 - **FIX:** Add `binary:1.6.16`
