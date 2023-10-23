@@ -186,7 +186,12 @@ unpack_prebuilt() {
   cd "$NIMDIR"
 
   echo "Downloading $archive_url ..."
-  if ! curl -f -LO "$archive_url"; then
+  AUTHARGS=()
+  if [ ! -z "$GITHUB_TOKEN" ]; then
+    echo "Using GITHUB_TOKEN for authenticated request"
+    AUTHARGS+=(--header "Authorization: Bearer ${GITHUB_TOKEN}")
+  fi
+  if ! curl -f "${AUTHARGS[@]}" -LO "$archive_url"; then
     echo "Failed to download"
     exit 1
   fi
