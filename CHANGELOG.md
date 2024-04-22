@@ -1,3 +1,7 @@
+# v5.0.4 - 2024-04-22
+
+- **FIX:** Add `binary:1.6.20` and `binary:2.0.4`
+
 # v5.0.3 - 2024-02-19
 
 - **FIX:** Add `binary:1.6.18` and `binary:2.0.2`
