@@ -13,7 +13,7 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-          - os: macOS-latest
+          - os: macOS-13
           - os: windows-latest
           - os: ubuntu-latest
             container:
@@ -90,7 +90,7 @@ jobs:
       matrix:
         os: 
         - ubuntu-latest
-        - macOS-latest
+        - macOS-13
         - windows-latest
         nim: ${{ fromJson(needs.matrix_prep.outputs.nimversions) }}
     steps:

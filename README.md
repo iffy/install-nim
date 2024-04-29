@@ -18,7 +18,7 @@ jobs:
           - binary:stable
         os:
           - ubuntu-latest
-          - macOS-latest
+          - macOS-13
           - windows-latest
     steps:
     - uses: actions/checkout@v1
@@ -72,7 +72,7 @@ jobs:
           - binary:1.6.0
         os:
           - ubuntu-latest
-          - macOS-latest
+          - macOS-13
           - windows-latest
     steps:
     - uses: actions/checkout@v1
