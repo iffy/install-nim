@@ -399,8 +399,9 @@ install_choosenim() {
   export CHOOSENIM_NO_ANALYTICS=1
   export CHOOSENIM_CHOOSE_VERSION="$target"
   if isubuntu18; then
-    curl -sSf -o "$HOME/.nimble/bin/choosenim" https://github.com/nim-lang/choosenim/releases/download/v0.8.4/choosenim-0.8.4_linux_amd64
-    "$HOME/.nimble/bin/choosenim" "$CHOOSENIM_CHOOSE_VERSION" --firstInstall -y
+    curl -sSf -o choosenim https://github.com/nim-lang/choosenim/releases/download/v0.8.4/choosenim-0.8.4_linux_amd64
+    choosenim "$CHOOSENIM_CHOOSE_VERSION" --firstInstall -y
+    mv choosenim "$HOME/.nimble/bin/"
   else
     curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s -- -y
   fi
