@@ -2,6 +2,7 @@
 # Heavily borrowed from https://github.com/alaviss/setup-nim/blob/master/setup.sh
 # So I guess that makes this GPL?  Can someone add a license here if it's needed.
 
+set -x
 
 usage() {
   cat <<EOF
@@ -90,7 +91,7 @@ islinux() {
     return 1
   fi
 }
-isubuntu18() {
+hasOldGlibC() {
   if islinux; then
     if grep 'Ubuntu 18' /etc/lsb-release; then
       return 0
@@ -398,7 +399,7 @@ install_choosenim() {
   fi
   export CHOOSENIM_NO_ANALYTICS=1
   export CHOOSENIM_CHOOSE_VERSION="$target"
-  if isubuntu18; then
+  if hasOldGlibC; then
     set -x
     curl -sSf -o choosenim https://github.com/nim-lang/choosenim/releases/download/v0.8.4/choosenim-0.8.4_linux_amd64
     chmod u+x ./choosenim
