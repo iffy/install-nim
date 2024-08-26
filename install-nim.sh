@@ -83,6 +83,24 @@ linuxpath() {
     echo "$thepath" | sed -e 's_\\_/_g'
   fi
 }
+islinux() {
+  if [ "$(osname)" == "linux" ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+isubuntu18() {
+  if islinux; then
+    if grep 'Ubuntu 18' /etc/lsb-release; then
+      return 0
+    else
+      return 1
+    fi
+  else
+    return 1
+  fi
+}
 windowspath() {
   # /c/Users/runneradmin/.nimble/bin -> C:\Users\runneradmin\.nimble\bin
   thepath="$1"
@@ -377,10 +395,15 @@ install_choosenim() {
     # a "1.4" style version
     target="$(grep "^${target}" "${THISDIR}/nightlies.txt" | cut -d' ' -f1 | tail -n 1)"
     echo "Found version ${target}"
-  fi  
+  fi
   export CHOOSENIM_NO_ANALYTICS=1
   export CHOOSENIM_CHOOSE_VERSION="$target"
-  curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s -- -y
+  if isubuntu18; then
+    curl -sSf -o "$HOME/.nimble/bin/choosenim" https://github.com/nim-lang/choosenim/releases/download/v0.8.4/choosenim-0.8.4_linux_amd64
+    "$HOME/.nimble/bin/choosenim" "$CHOOSENIM_CHOOSE_VERSION" --firstInstall -y
+  else
+    curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s -- -y
+  fi
   add-path "$HOME/.nimble/bin"
   add-path "$(abspath "$HOME/.nimble/bin")"
   if iswindows; then
