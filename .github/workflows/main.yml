@@ -95,6 +95,14 @@ jobs:
         nim: ${{ fromJson(needs.matrix_prep.outputs.nimversions) }}
     steps:
       - uses: actions/checkout@v1
+      - name: Inspect
+        shell: bash
+        run: |
+          if which ldd; then
+            ldd --version
+          else
+            echo "no ldd"
+          fi 
       - uses: ./
         with:
           version: ${{ matrix.nim }}
