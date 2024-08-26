@@ -401,7 +401,7 @@ install_choosenim() {
   export CHOOSENIM_CHOOSE_VERSION="$target"
   if hasOldGlibC; then
     set -x
-    curl -sSf -o choosenim https://github.com/nim-lang/choosenim/releases/download/v0.8.4/choosenim-0.8.4_linux_amd64
+    curl -sSf -o choosenim https://github.com/dom96/choosenim/releases/download/v0.8.4/choosenim-0.8.4_linux_amd64
     chmod u+x ./choosenim
     if [ -z "$CHOOSENIM_CHOOSE_VERSION" ]; then
       CHOOSENIM_CHOOSE_VERSION="stable"
