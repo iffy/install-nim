@@ -404,7 +404,7 @@ install_choosenim() {
     curl -sSf -o choosenim https://github.com/nim-lang/choosenim/releases/download/v0.8.4/choosenim-0.8.4_linux_amd64
     chmod u+x ./choosenim
     if [ -z "$CHOOSENIM_CHOOSE_VERSION" ]; then
-      CHOOSENIM_CHOOSE_VERSION="$(curl -sSfL https://nim-lang.org/choosenim/stable)"
+      CHOOSENIM_CHOOSE_VERSION="stable"
     fi
     ./choosenim "$CHOOSENIM_CHOOSE_VERSION" --firstInstall -y
     mv choosenim "$HOME/.nimble/bin/"
