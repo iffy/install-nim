@@ -1,3 +1,7 @@
+# v5.0.7 - 2024-10-07
+
+- **FIX:** Added new binary versions
+
 # v5.0.6 - 2024-07-08
 
 - **FIX:** Add `binary:2.0.8`
