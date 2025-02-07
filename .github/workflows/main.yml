@@ -104,6 +104,14 @@ jobs:
           version: ${{ matrix.nim }}
       - run: nim -v
       - run: nimble -v
+      - name: Install deps
+        shell: bash
+        run: |
+          if [ "$(uname)" == "Linux" ]; then
+            sudo apt-get update -qqq
+            sudo apt-get install -y curl build-essential
+            sudo apt-get install -y libpcre3-dev libpcre3
+          fi
       - name: Test
         run: nim c -r sample.nim
       - name: Test installed executable
