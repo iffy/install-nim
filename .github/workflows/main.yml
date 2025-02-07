@@ -13,6 +13,9 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
+            extrasetup: |
+              apt-get update -qqq
+              apt-get install -y libpcre3-dev libpcre3
           - os: macOS-13
           - os: windows-latest
           - os: ubuntu-latest
@@ -21,6 +24,7 @@ jobs:
             extrasetup: |
               apt-get update -qqq
               apt-get install -y curl build-essential
+              apt-get install -y libpcre3-dev libpcre3
     steps:
       - uses: actions/checkout@v1
       - name: Extra setup
