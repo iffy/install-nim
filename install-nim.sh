@@ -363,7 +363,7 @@ install_nightly() {
 # Install nightly prebuild binaries
 # from a version number. This relies on precompiling
 # a mapping of version number to nightly using
-# `nim c -r getnightlies.nim`
+# `bash getnightlies.sh`
 #------------------------------------------------
 install_binary() {
   version=${1}
@@ -377,8 +377,17 @@ install_binary() {
     echo "Found nightly URL for ${version}: ${URL}"
     install_nightly "$URL"
   else
-    echo "ERROR: no nightly found for ${version}"
-    exit 1
+    echo "WARNING: no nightly found for ${version} in cached nightlies.txt"
+    echo "Refreshing nightlies.txt ..."
+    "${THISDIR}./getnightlies.sh" || echo ""
+    URL="$(grep "^$version" "${THISDIR}/nightlies.txt" | cut -d' ' -f2 | tail -n 1)"
+    if [ ! -z "$URL" ] && [ ! "$URL" == "none" ]; then
+      echo "Found nightly URL for ${version}: ${URL}"
+      install_nightly "$URL"
+    else
+      echo "ERROR: no nightly found for ${version}"
+      exit 1
+    fi
   fi
 }
 
