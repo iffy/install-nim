@@ -387,7 +387,6 @@ install_binary() {
 #------------------------------------------------
 install_choosenim() {
   target="$1"
-  ensure_libpcre
   echo "Installing via choosenim for: $target"
   if [ "$(echo "${target}" | grep -o "\." | wc -l)" -lt 2 ]; then
     # a "1.4" style version
@@ -425,6 +424,8 @@ install_arg=$(echo "$TARGET" | cut -d: -f2-)
 if [ "$install_type" == "$install_arg" ]; then
   install_type="choosenim"
 fi
+
+ensure_libpcre
 
 #------------------------------------------------
 # Install Nim
