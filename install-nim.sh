@@ -246,6 +246,21 @@ ensure_dlls() {
   fi
 }
 
+ensure_libpcre() {
+  local os; os="$(uname)"
+  if [ "$os" == "Linux" ]; then
+    if ! dpkg -l | grep libpcre3-dev; then
+      if which sudo; then
+        sudo apt-get update -qqq
+        sudo apt-get install -y libpcre3-dev
+      else
+        apt-get update -qqq
+        apt-get install -y libpcre3-dev
+      fi
+    fi
+  fi
+}
+
 #------------------------------------------------
 # Install a published released version of Nim
 #------------------------------------------------
@@ -372,6 +387,7 @@ install_binary() {
 #------------------------------------------------
 install_choosenim() {
   target="$1"
+  ensure_libpcre
   echo "Installing via choosenim for: $target"
   if [ "$(echo "${target}" | grep -o "\." | wc -l)" -lt 2 ]; then
     # a "1.4" style version
