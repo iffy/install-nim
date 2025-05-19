@@ -13,6 +13,9 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
+            extrasetup: |
+              apt-get update -qqq
+              apt-get install -y libpcre3-dev
           - os: macOS-13
           - os: windows-latest
           - os: ubuntu-latest
@@ -95,6 +98,13 @@ jobs:
         nim: ${{ fromJson(needs.matrix_prep.outputs.nimversions) }}
     steps:
       - uses: actions/checkout@v1
+      - name: Extra deps
+        shell: bash
+        run: |
+          if [ "$(uname)" == "Linux" ]; then
+            apt-get update -qqq
+            apt-get install -y libpcre3-dev
+          fi
       - uses: ./
         with:
           version: ${{ matrix.nim }}
