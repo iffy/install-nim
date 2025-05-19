@@ -102,6 +102,8 @@ jobs:
         exclude:
         - os: ubuntu-latest
           nim: git:v1.4.8
+        - os: ubuntu-latest
+          nim: sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz
     steps:
       - uses: actions/checkout@v1
       - uses: ./
