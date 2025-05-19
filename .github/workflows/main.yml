@@ -62,10 +62,10 @@ jobs:
             'nightly:https://github.com/nim-lang/nightlies/releases/tag/2025-05-13-version-2-2-9cfc3399bc9b7538941ba59803c998cc8fc7a653',
             'sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz',
             'release:1.2.8',
-            'git:9cfc3399bc9b7538941ba59803c998cc8fc7a653',
+            'git:f7145dd26efeeeb6eeae6fff649db244d81b212d',
             'git:v1.4.8',
             'git:v1.6.10',
-            'git:9cfc3399bc9b7538941ba59803c998cc8fc7a653 https://github.com/iffy/Nim.git',
+            'git:f7145dd26efeeeb6eeae6fff649db244d81b212d https://github.com/iffy/Nim.git',
             '0.20.0',
           ]
           with io.open('nightlies.txt', 'r') as fh:
