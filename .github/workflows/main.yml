@@ -105,8 +105,6 @@ jobs:
           version: ${{ matrix.nim }}
       - run: nim -v
       - run: nimble -v
-      - run: nimble install -y nimble
-      - run: nimble -v
       - name: Test
         run: nim c -r sample.nim
       - name: Test installed executable
@@ -117,13 +115,10 @@ jobs:
           cd .github/workflows/sampleproj
           nimble install --verbose -y
           nimble path sampleproj
-          pwd
-          ls
-          ls -al /c/Users/runneradmin/.nimble/bin/ || echo testing
-          cat /c/Users/runneradmin/.nimble/bin/hello
-          if which hello; then
-            hello
-          else
-            hello.exe
+          # I don't know why installed stubs are no longer executable on Windows :(
+          if [ -d "/c/Users/runneradmin/.nimble/bin" ]; then
+            chmod u+x /c/Users/runneradmin/.nimble/bin/*
           fi
+          hello
+          
   
