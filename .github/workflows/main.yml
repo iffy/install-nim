@@ -118,6 +118,7 @@ jobs:
           pwd
           ls
           ls -al /c/Users/runneradmin/.nimble/bin/ || echo testing
+          cat /c/Users/runneradmin/.nimble/bin/hello
           if which hello; then
             hello
           else
