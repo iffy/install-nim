@@ -396,7 +396,7 @@ install_choosenim() {
   export CHOOSENIM_VERSION="0.18.12"
   export CHOOSENIM_NO_ANALYTICS=1
   export CHOOSENIM_CHOOSE_VERSION="$target"
-  sh -s "${THISDIR}/choosenim-unix-init.sh" -- -y
+  sh "${THISDIR}/choosenim-unix-init.sh" -- -y
   add-path "$HOME/.nimble/bin"
   add-path "$(abspath "$HOME/.nimble/bin")"
   if iswindows; then
