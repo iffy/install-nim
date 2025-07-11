@@ -115,5 +115,5 @@ jobs:
           nimble install --verbose -y
           nimble path sampleproj
           ls
-          ./hello
+          hello
   
