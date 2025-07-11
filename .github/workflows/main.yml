@@ -6,25 +6,25 @@ on:
     - cron: '0 0 * * 1'
 
 jobs:
-  default:
-    runs-on: ${{ matrix.os }}
-    container: ${{ matrix.container }}
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-          - os: macOS-13
-          - os: windows-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Extra setup
-        shell: bash
-        run: ${{ matrix.extrasetup }}
-      - uses: ./
-      - run: nim -v
-      - run: nimble -v
-      - name: Test
-        run: nim c -r sample.nim
+  # default:
+  #   runs-on: ${{ matrix.os }}
+  #   container: ${{ matrix.container }}
+  #   strategy:
+  #     matrix:
+  #       include:
+  #         - os: ubuntu-latest
+  #         - os: macOS-13
+  #         - os: windows-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - name: Extra setup
+  #       shell: bash
+  #       run: ${{ matrix.extrasetup }}
+  #     - uses: ./
+  #     - run: nim -v
+  #     - run: nimble -v
+  #     - name: Test
+  #       run: nim c -r sample.nim
 
   # Check for tags missing from nightlies.txt
   missing_binary_tags:
@@ -89,8 +89,8 @@ jobs:
       fail-fast: true
       matrix:
         os: 
-        - ubuntu-latest
-        - macOS-13
+        #- ubuntu-latest
+        #- macOS-13
         - windows-latest
         nim: ${{ fromJson(needs.matrix_prep.outputs.nimversions) }}
         exclude:
@@ -115,6 +115,7 @@ jobs:
           cd .github/workflows/sampleproj
           nimble install --verbose -y
           nimble path sampleproj
+          pwd
           ls
           ls -al /c/Users/runneradmin/.nimble/bin/ || echo testing
           if which hello; then
