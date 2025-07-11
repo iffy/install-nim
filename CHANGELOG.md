@@ -1,3 +1,7 @@
+# v5.0.12 - 2025-07-11
+
+- **FIX:** Stick with choosenim 0.8.12 due to bugs in 0.8.14 on Windows
+
 # v5.0.11 - 2025-07-11
 
 - **FIX:** Add `binary:2.0.16` and `binary:2.2.4`
