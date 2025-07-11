@@ -107,18 +107,26 @@ jobs:
       - run: nimble -v
       - name: Test
         run: nim c -r sample.nim
-      - name: Test installed executable
+      - name: Install sample project
         shell: bash
         run: |
-          set -xe
-          echo $PATH
           cd .github/workflows/sampleproj
           nimble install --verbose -y
+      - name: Check sample project path
+        shell: bash
+        run: |
           nimble path sampleproj
+      - name: Make installed script executable
+        shell: bash
+        run: |
           # I don't know why installed stubs are no longer executable on Windows :(
           if [ -d "/c/Users/runneradmin/.nimble/bin" ]; then
             chmod u+x /c/Users/runneradmin/.nimble/bin/*
           fi
+      - name: Run installed executable
+        shell: bash
+        run: |
+          echo $PATH
           hello
           
   
