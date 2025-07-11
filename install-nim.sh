@@ -393,7 +393,7 @@ install_choosenim() {
     target="$(grep "^${target}" "${THISDIR}/nightlies.txt" | cut -d' ' -f1 | tail -n 1)"
     echo "Found version ${target}"
   fi
-  export CHOOSENIM_VERSION="0.18.12"
+  export CHOOSENIM_VERSION="0.8.12"
   export CHOOSENIM_NO_ANALYTICS=1
   export CHOOSENIM_CHOOSE_VERSION="$target"
   sh "${THISDIR}/choosenim-unix-init.sh" -- -y
