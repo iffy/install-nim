@@ -114,6 +114,7 @@ jobs:
           cd .github/workflows/sampleproj
           pwd
           nimble install --verbose -y
+          ls -al
       - name: Check sample project path
         shell: bash
         run: |
