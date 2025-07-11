@@ -246,6 +246,21 @@ ensure_dlls() {
   fi
 }
 
+ensure_libpcre() {
+  local os; os="$(uname)"
+  if [ "$os" == "Linux" ]; then
+    if ! dpkg -l | grep libpcre3-dev; then
+      if which sudo; then
+        sudo apt-get update -qqq
+        sudo apt-get install -y libpcre3-dev
+      else
+        apt-get update -qqq
+        apt-get install -y libpcre3-dev
+      fi
+    fi
+  fi
+}
+
 #------------------------------------------------
 # Install a published released version of Nim
 #------------------------------------------------
@@ -409,6 +424,8 @@ install_arg=$(echo "$TARGET" | cut -d: -f2-)
 if [ "$install_type" == "$install_arg" ]; then
   install_type="choosenim"
 fi
+
+ensure_libpcre
 
 #------------------------------------------------
 # Install Nim

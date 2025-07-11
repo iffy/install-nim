@@ -59,21 +59,27 @@ jobs:
             '1.6',
             'binary:1.6',
             '1.4.0',
-            'nightly:https://github.com/nim-lang/nightlies/releases/tag/2020-11-11-devel-bbe49a14ae827b6474d692042406716a3b3dd71f',
+            'nightly:https://github.com/nim-lang/nightlies/releases/tag/2025-05-13-version-2-2-9cfc3399bc9b7538941ba59803c998cc8fc7a653',
             'sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz',
             'release:1.2.8',
-            'git:bbe49a14ae827b6474d692042406716a3b3dd71f',
+            'git:f7145dd26efeeeb6eeae6fff649db244d81b212d',
             'git:v1.4.8',
             'git:v1.6.10',
-            'git:bbe49a14ae827b6474d692042406716a3b3dd71f https://github.com/iffy/Nim.git',
+            'git:f7145dd26efeeeb6eeae6fff649db244d81b212d https://github.com/iffy/Nim.git',
             '0.20.0',
           ]
           with io.open('nightlies.txt', 'r') as fh:
+            to_pick = {}
             for line in fh:
               if 'https' in line:
-                tag = 'binary:' + line.split()[0]
-                if tag not in versions:
-                  versions.append(tag)
+                ver = line.split()[0]
+                (maj, min, bug) = ver.split('.')
+                # get the latest MAJ.MIN.X version
+                to_pick[(maj,min)] = ver
+            for key in to_pick:
+              tag = 'binary:' + to_pick[key]
+              if tag not in versions:
+                versions.append(tag)
           print("NIMVERSIONS=" + json.dumps(versions))
           EOF
           python script.py >> $GITHUB_OUTPUT
@@ -93,6 +99,11 @@ jobs:
         - macOS-13
         - windows-latest
         nim: ${{ fromJson(needs.matrix_prep.outputs.nimversions) }}
+        exclude:
+        - os: ubuntu-latest
+          nim: git:v1.4.8
+        - os: ubuntu-latest
+          nim: sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz
     steps:
       - uses: actions/checkout@v1
       - uses: ./
