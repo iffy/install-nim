@@ -110,7 +110,7 @@ jobs:
       - name: Test installed executable
         shell: bash
         run: |
-          set -x
+          set -xe
           echo $PATH
           cd .github/workflows/sampleproj
           nimble install --verbose -y
