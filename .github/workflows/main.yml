@@ -104,6 +104,14 @@ jobs:
         with:
           version: ${{ matrix.nim }}
       - run: nim -v
+      - name: Ensure nimble is new enough
+        shell: bash
+        run: |
+          INSTALLED_VER="$(nimble -v | head -n1 | cut -d' ' -f2 | cut -c2-)"
+          MIN_VER="0.18.2"
+          if [[ "$(echo -e "${INSTALLED_VER}\n${MIN_VER}" | sort -V | head -n1)" == "$INSTALLED_VER" ]]; then
+            nimble install --verbose -y "nimble==${MIN_VER}"
+          fi
       - run: nimble -v
       - name: Test
         run: nim c -r sample.nim
