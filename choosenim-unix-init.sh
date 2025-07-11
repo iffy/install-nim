@@ -40,6 +40,7 @@ install() {
   fi
   local filename="choosenim-$tool_version"_"$platform"
   local url="$url_prefix"v"$tool_version/$filename"
+  echo "url: $url"
   local ext=""
 
   case $platform in
