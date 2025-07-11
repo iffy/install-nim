@@ -89,8 +89,8 @@ jobs:
       fail-fast: true
       matrix:
         os: 
-        # - ubuntu-latest
-        # - macOS-13
+        - ubuntu-latest
+        - macOS-13
         - windows-latest
         nim: ${{ fromJson(needs.matrix_prep.outputs.nimversions) }}
         exclude:
