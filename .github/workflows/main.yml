@@ -15,12 +15,6 @@ jobs:
           - os: ubuntu-latest
           - os: macOS-13
           - os: windows-latest
-          - os: ubuntu-latest
-            container:
-              image: ubuntu:18.04
-            extrasetup: |
-              apt-get update -qqq
-              apt-get install -y curl build-essential
     steps:
       - uses: actions/checkout@v1
       - name: Extra setup
