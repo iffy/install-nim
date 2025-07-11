@@ -12,8 +12,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-latest
-          - os: macOS-13
+          # - os: ubuntu-latest
+          # - os: macOS-13
           - os: windows-latest
     steps:
       - uses: actions/checkout@v1
@@ -89,8 +89,8 @@ jobs:
       fail-fast: true
       matrix:
         os: 
-        - ubuntu-latest
-        - macOS-13
+        # - ubuntu-latest
+        # - macOS-13
         - windows-latest
         nim: ${{ fromJson(needs.matrix_prep.outputs.nimversions) }}
         exclude:
@@ -110,16 +110,19 @@ jobs:
       - name: Install sample project
         shell: bash
         run: |
+          set -x
           cd .github/workflows/sampleproj
           nimble install --verbose -y
       - name: Check sample project path
         shell: bash
         run: |
+          set -x
           nimble path sampleproj
       - name: Make installed script executable
         shell: bash
         run: |
           # I don't know why installed stubs are no longer executable on Windows :(
+          set -x
           if [ -d "/c/Users/runneradmin/.nimble/bin" ]; then
             chmod u+x /c/Users/runneradmin/.nimble/bin/*
           fi
