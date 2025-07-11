@@ -105,6 +105,8 @@ jobs:
           version: ${{ matrix.nim }}
       - run: nim -v
       - run: nimble -v
+      - run: nimble install -y nimble
+      - run: nimble -v
       - name: Test
         run: nim c -r sample.nim
       - name: Test installed executable
