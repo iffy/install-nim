@@ -116,6 +116,7 @@ jobs:
           nimble install --verbose -y
           nimble path sampleproj
           ls
+          ls -al /c/Users/runneradmin/.nimble/bin/ || echo testing
           if which hello; then
             hello
           else
