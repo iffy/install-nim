@@ -15,6 +15,12 @@ jobs:
           - os: ubuntu-latest
           - os: macOS-13
           - os: windows-latest
+          - os: ubuntu-latest
+            container:
+              image: ubuntu:18.04
+            extrasetup: |
+              apt-get update -qqq
+              apt-get install -y curl build-essential
     steps:
       - uses: actions/checkout@v1
       - name: Extra setup
@@ -120,14 +126,6 @@ jobs:
         run: |
           set -xe
           nimble path sampleproj
-      - name: Make installed script executable
-        shell: bash
-        run: |
-          # I don't know why installed stubs are no longer executable on Windows :(
-          set -xe
-          if [ -d "/c/Users/runneradmin/.nimble/bin" ]; then
-            chmod u+x /c/Users/runneradmin/.nimble/bin/*
-          fi
       - name: Run installed executable
         shell: bash
         run: |
