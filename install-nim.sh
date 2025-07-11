@@ -117,11 +117,11 @@ add-path() {
     # Running on GitHub Actions
     echo "$1" >> "$GITHUB_PATH"
     export PATH="$1:$PATH"
-    echo "Directory '$1' has been added to PATH."
+    echo "Directory '$1' has been added to PATH via GITHUB_PATH"
   elif [ ! -z "$AZURE_HTTP_USER_AGENT" ]; then
     # Running on Azure Pipelines
     echo "##vso[task.prependpath]$1"
-    echo "Directory '$1' has been added to PATH."
+    echo "Directory '$1' has been added to PATH via vso[task.prependpath]"
   else
     # Tell the user to add the path
     echo "export PATH="'"'"\${PATH}:$1"'"'""
@@ -392,10 +392,11 @@ install_choosenim() {
     # a "1.4" style version
     target="$(grep "^${target}" "${THISDIR}/nightlies.txt" | cut -d' ' -f1 | tail -n 1)"
     echo "Found version ${target}"
-  fi  
+  fi
+  export CHOOSENIM_VERSION="0.8.12"
   export CHOOSENIM_NO_ANALYTICS=1
   export CHOOSENIM_CHOOSE_VERSION="$target"
-  curl https://nim-lang.org/choosenim/init.sh -sSf | sh -s -- -y
+  cat "${THISDIR}/choosenim-unix-init.sh" | sh -s -- -y
   add-path "$HOME/.nimble/bin"
   add-path "$(abspath "$HOME/.nimble/bin")"
   if iswindows; then

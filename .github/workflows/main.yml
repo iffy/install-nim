@@ -113,13 +113,24 @@ jobs:
       - run: nimble -v
       - name: Test
         run: nim c -r sample.nim
-      - name: Test installed executable
+      - name: Install sample project
         shell: bash
         run: |
-          set -x
-          echo $PATH
+          set -xe
           cd .github/workflows/sampleproj
+          pwd
           nimble install --verbose -y
+          ls -al
+      - name: Check sample project path
+        shell: bash
+        run: |
+          set -xe
           nimble path sampleproj
+      - name: Run installed executable
+        shell: bash
+        run: |
+          set -xe
+          echo $PATH
           hello
+          
   
