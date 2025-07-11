@@ -60,7 +60,6 @@ jobs:
             'git:v1.4.8',
             'git:v1.6.10',
             'git:f7145dd26efeeeb6eeae6fff649db244d81b212d https://github.com/iffy/Nim.git',
-            '0.20.0',
           ]
           with io.open('nightlies.txt', 'r') as fh:
             to_pick = {}
@@ -115,5 +114,6 @@ jobs:
           cd .github/workflows/sampleproj
           nimble install --verbose -y
           nimble path sampleproj
-          hello
+          ls
+          ./hello
   
