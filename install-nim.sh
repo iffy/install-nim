@@ -369,6 +369,8 @@ install_binary() {
   version=${1}
   echo "install_binary $version"
   if [ "$version" == "stable" ]; then
+    echo "Refreshing nightlies.txt ..."
+    "${THISDIR}/getnightlies.sh" || echo ""
     version=$(tail -n1 "${THISDIR}/nightlies.txt" | cut -d' ' -f1)
     echo "stable -> ${version}"
   fi
