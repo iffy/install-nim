@@ -1,3 +1,7 @@
+# v5.1.0 - 2025-07-16
+
+- **NEW:** When installing a `binary:` version, if the version isn't found in `nightlies.txt` cache, the cache is refreshed and it tries again.
+
 # v5.0.12 - 2025-07-11
 
 - **FIX:** Stick with choosenim 0.8.12 due to bugs in 0.8.14 on Windows
