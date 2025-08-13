@@ -1,0 +1,1 @@
+Make `binary:stable` faster
