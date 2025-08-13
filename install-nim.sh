@@ -370,7 +370,7 @@ install_binary() {
   echo "install_binary $version"
   if [ "$version" == "stable" ]; then
     echo "Refreshing nightlies.txt ..."
-    "${THISDIR}/getnightlies.sh" || echo ""
+    (cd "$THISDIR" && ./getnightlies.sh || echo "")
     version=$(tail -n1 "${THISDIR}/nightlies.txt" | cut -d' ' -f1)
     echo "stable -> ${version}"
   fi
@@ -381,7 +381,7 @@ install_binary() {
   else
     echo "WARNING: no nightly found for ${version} in cached nightlies.txt"
     echo "Refreshing nightlies.txt ..."
-    "${THISDIR}/getnightlies.sh" || echo ""
+    (cd "$THISDIR" && ./getnightlies.sh || echo "")
     URL="$(grep "^$version" "${THISDIR}/nightlies.txt" | cut -d' ' -f2 | tail -n 1)"
     if [ ! -z "$URL" ] && [ ! "$URL" == "none" ]; then
       echo "Found nightly URL for ${version}: ${URL}"
