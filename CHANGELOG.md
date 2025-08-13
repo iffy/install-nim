@@ -1,3 +1,7 @@
+# v5.1.1 - 2025-08-13
+
+- **FIX:** Make `binary:stable` faster
+
 # v5.1.0 - 2025-07-16
 
 - **NEW:** When installing a `binary:` version, if the version isn't found in `nightlies.txt` cache, the cache is refreshed and it tries again.
