@@ -26,6 +26,9 @@ jobs:
       - name: Extra setup
         shell: bash
         run: ${{ matrix.extrasetup }}
+      - name: Set CHOOSENIM_VERSION for Windows
+        if: runner.os == 'Windows'
+        run: echo "CHOOSENIM_VERSION=0.8.16" >> $GITHUB_ENV
       - uses: ./
       - run: nim -v
       - run: nimble -v
