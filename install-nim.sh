@@ -408,6 +408,7 @@ install_choosenim() {
   echo "Using choosenim version: $CHOOSENIM_VERSION"
   export CHOOSENIM_NO_ANALYTICS=1
   export CHOOSENIM_CHOOSE_VERSION="$target"
+  mkdir -p "$HOME/.nimble/bin" # workaround for https://github.com/nim-lang/choosenim/issues/27
   cat "${THISDIR}/choosenim-unix-init.sh" | sh -s -- -y
   add-path "$HOME/.nimble/bin"
   add-path "$(abspath "$HOME/.nimble/bin")"
