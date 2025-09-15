@@ -7,6 +7,7 @@
 # of choosenim and initiates its installation.
 
 set -u
+set -x
 set -e
 
 url_prefix="https://github.com/nim-lang/choosenim/releases/download/"
