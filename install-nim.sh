@@ -405,6 +405,7 @@ install_choosenim() {
     echo "Found version ${target}"
   fi
   export CHOOSENIM_VERSION="${CHOOSENIM_VERSION:-0.8.12}"
+  echo "Using choosenim version: $CHOOSENIM_VERSION"
   export CHOOSENIM_NO_ANALYTICS=1
   export CHOOSENIM_CHOOSE_VERSION="$target"
   cat "${THISDIR}/choosenim-unix-init.sh" | sh -s -- -y
