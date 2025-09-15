@@ -29,6 +29,8 @@ jobs:
       - name: Set CHOOSENIM_VERSION for Windows
         if: runner.os == 'Windows'
         run: echo "CHOOSENIM_VERSION=0.8.16" >> $GITHUB_ENV
+      - shell: bash
+        run: echo "$CHOOSENIM_VERSION"
       - uses: ./
       - run: nim -v
       - run: nimble -v
@@ -112,6 +114,8 @@ jobs:
       - name: Set CHOOSENIM_VERSION for Windows
         if: runner.os == 'Windows'
         run: echo "CHOOSENIM_VERSION=0.8.16" >> $GITHUB_ENV
+      - shell: bash
+        run: echo "$CHOOSENIM_VERSION"
       - uses: ./
         with:
           version: ${{ matrix.nim }}
