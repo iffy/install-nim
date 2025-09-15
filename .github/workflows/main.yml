@@ -27,6 +27,7 @@ jobs:
         shell: bash
         run: ${{ matrix.extrasetup }}
       - name: Set CHOOSENIM_VERSION for Windows
+        shell: bash
         if: runner.os == 'Windows'
         run: echo "CHOOSENIM_VERSION=0.8.16" >> $GITHUB_ENV
       - shell: bash
@@ -112,6 +113,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Set CHOOSENIM_VERSION for Windows
+        shell: bash
         if: runner.os == 'Windows'
         run: echo "CHOOSENIM_VERSION=0.8.16" >> $GITHUB_ENV
       - shell: bash
