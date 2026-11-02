@@ -276,7 +276,38 @@ ensure_libpcre() {
       echo "ERROR: could not install libpcre2-dev or libpcre3-dev"
       exit 1
     fi
+    ensure_libpcre3_runtime
   fi
+}
+
+# Nim's `re` module loads PCRE1 (libpcre.so.3) at runtime, but newer
+# distros (e.g. Ubuntu 26.04+, Debian 13+) no longer ship pcre3.
+# Fall back to installing the runtime library from Ubuntu 24.04 (noble),
+# which only depends on libc6.
+ensure_libpcre3_runtime() {
+  if dpkg -s libpcre3 >/dev/null 2>&1; then
+    return
+  fi
+  local arch; arch="$(dpkg --print-architecture)"
+  local base
+  case "$arch" in
+    amd64) base="http://archive.ubuntu.com/ubuntu" ;;
+    arm64) base="http://ports.ubuntu.com/ubuntu-ports" ;;
+    *)
+      echo "WARNING: libpcre3 unavailable for $arch; Nim's re module won't work"
+      return
+      ;;
+  esac
+  local deb="libpcre3_8.39-15build1_${arch}.deb"
+  local tmpdir; tmpdir="$(mktemp -d)"
+  echo "libpcre3 not available from apt; installing $deb from Ubuntu noble"
+  if curl -sSfL -o "${tmpdir}/${deb}" "${base}/pool/universe/p/pcre3/${deb}" \
+      && sudo dpkg -i "${tmpdir}/${deb}"; then
+    echo "Installed libpcre3 from $deb"
+  else
+    echo "WARNING: failed to install $deb; Nim's re module won't work"
+  fi
+  rm -rf "$tmpdir"
 }
 
 #------------------------------------------------
