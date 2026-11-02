@@ -1,3 +1,7 @@
+# v5.1.2 - 2026-11-02
+
+- **FIX:** CI works again on macOS and Windows
+
 # v5.1.1 - 2025-08-13
 
 - **FIX:** Make `binary:stable` faster
