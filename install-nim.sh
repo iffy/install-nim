@@ -398,6 +398,12 @@ install_nightly() {
   fi
   curl -o nightlydata.json "${AUTHARGS[@]}" --header "Accept: application/vnd.github.v3+json" "$nightlydataurl"
   archive_url=$(cat nightlydata.json | grep '"browser_download_url"' | grep "$archive_name" | head -n1 | cut -d'"' -f4)
+  if [ -z "$archive_url" ] && [ "$archive_name" == "macosx_arm64.tar.xz" ]; then
+    # Nim < 2.0 has no Apple Silicon builds; use the x64 build via Rosetta 2.
+    echo "No macosx_arm64 build found; falling back to macosx_x64 (runs under Rosetta 2)"
+    archive_name=macosx_x64.tar.xz
+    archive_url=$(cat nightlydata.json | grep '"browser_download_url"' | grep "$archive_name" | head -n1 | cut -d'"' -f4)
+  fi
   if [ -z "$archive_url" ]; then
     echo "ERROR: nightly data from $nightlydataurl --------------------"
     cat nightlydata.json
