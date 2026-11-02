@@ -249,14 +249,32 @@ ensure_dlls() {
 ensure_libpcre() {
   local os; os="$(uname)"
   if [ "$os" == "Linux" ]; then
-    if ! dpkg -l | grep libpcre3-dev; then
-      if which sudo; then
-        sudo apt-get update -qqq
-        sudo apt-get install -y libpcre3-dev
+    local pkg
+    local missing=()
+    local have=0
+    for pkg in libpcre2-dev libpcre3-dev; do
+      if dpkg -s "$pkg" >/dev/null 2>&1; then
+        echo "$pkg is already installed"
+        have=$((have + 1))
       else
-        apt-get update -qqq
-        apt-get install -y libpcre3-dev
+        missing+=("$pkg")
       fi
+    done
+    if [ "${#missing[@]}" -eq 0 ]; then
+      return
+    fi
+    sudo apt-get update -qqq
+    for pkg in "${missing[@]}"; do
+      echo "Installing $pkg"
+      if sudo apt-get install -y "$pkg"; then
+        have=$((have + 1))
+      else
+        echo "Failed to install $pkg"
+      fi
+    done
+    if [ "$have" -eq 0 ]; then
+      echo "ERROR: could not install libpcre2-dev or libpcre3-dev"
+      exit 1
     fi
   fi
 }
