@@ -42,15 +42,19 @@ install() {
   local url="$url_prefix"v"$tool_version/$filename"
   echo "url: $url"
   local ext=""
+  local is_zip=no
 
   case $platform in
     *macosx_amd64* | *macosx_arm* | *linux_amd64* | *linux_arm64* )
       ;;
     *windows_amd64* )
-      # Download ZIP for Windows
+      # Download ZIP for Windows. It bundles the OpenSSL DLLs choosenim.exe
+      # needs; without them it may pick up an incompatible libssl from PATH
+      # ("could not find symbol: SSL_library_init").
       local ext=".exe"
-      local filename="$filename$ext"
-      local url="$url$ext"
+      local is_zip=yes
+      local filename="$filename.zip"
+      local url="$url.zip"
       ;;
     * )
       say_err "Sorry, your platform ($platform) is not supported by choosenim."
@@ -66,7 +70,14 @@ install() {
   elif has_wget; then
     wget -qO "$temp_prefix/$filename" "$url"
   fi
-  chmod +x "$temp_prefix/$filename"
+  local exe="$temp_prefix/$filename"
+  if [ "$is_zip" = "yes" ]; then
+    local unzipdir="$temp_prefix/${filename%.zip}"
+    rm -rf "$unzipdir"
+    unzip -q -o "$temp_prefix/$filename" -d "$unzipdir"
+    exe="$unzipdir/choosenim/choosenim$ext"
+  fi
+  chmod +x "$exe"
 
   if [ "$need_tty" = "yes" ]; then
     # The installer is going to want to ask for confirmation by
@@ -78,14 +89,19 @@ install() {
     fi
 
     # Install Nim from desired channel.
-    "$temp_prefix/$filename" $CHOOSE_VERSION --firstInstall ${debug} < /dev/tty
+    "$exe" $CHOOSE_VERSION --firstInstall ${debug} < /dev/tty
   else
-    "$temp_prefix/$filename" $CHOOSE_VERSION --firstInstall -y ${debug}
+    "$exe" $CHOOSE_VERSION --firstInstall -y ${debug}
   fi
 
   # Copy choosenim binary to Nimble bin.
-  local nimbleBinDir=`"$temp_prefix/$filename" --getNimbleBin`
-  cp "$temp_prefix/$filename" "$nimbleBinDir/choosenim$ext"
+  local nimbleBinDir=`"$exe" --getNimbleBin`
+  if [ "$is_zip" = "yes" ]; then
+    # Bring the bundled DLLs and cacert.pem along with the exe.
+    cp "$(dirname "$exe")"/* "$nimbleBinDir/"
+  else
+    cp "$exe" "$nimbleBinDir/choosenim$ext"
+  fi
   say "ChooseNim installed in $nimbleBinDir"
   say "You must now ensure that the Nimble bin dir is in your PATH."
   if [ "$platform" != "windows_amd64" ]; then
