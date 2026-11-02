@@ -43,7 +43,7 @@ jobs:
   matrix_prep:
     runs-on: ubuntu-latest
     outputs:
-      nimversions: ${{ steps.set-nim-versions.outputs.NIMVERSIONS }}
+      matrix: ${{ steps.set-nim-versions.outputs.MATRIX }}
     steps:
       - uses: actions/checkout@v1
       - id: set-nim-versions
@@ -51,22 +51,27 @@ jobs:
           cat > script.py <<EOF
           import io
           import json
+          # Nim publishes Apple Silicon builds starting with 2.0. Older
+          # versions (and their csources) only target Intel macOS, so they
+          # run on GitHub's last Intel image instead.
+          ARM = 'macos-latest'
+          INTEL = 'macos-15-intel'
           versions = [
-            'stable',
-            'binary:stable',
-            '2.0',
-            'binary:2.0',
-            '1.6',
-            'binary:1.6',
-            '1.4.0',
-            'nightly:https://github.com/nim-lang/nightlies/releases/tag/2025-05-13-version-2-2-9cfc3399bc9b7538941ba59803c998cc8fc7a653',
-            'sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz',
-            'release:1.2.8',
-            'git:f7145dd26efeeeb6eeae6fff649db244d81b212d',
-            'git:v1.4.8',
-            'git:v1.6.10',
-            'git:f7145dd26efeeeb6eeae6fff649db244d81b212d https://github.com/iffy/Nim.git',
-            '0.20.0',
+            ('stable', ARM),
+            ('binary:stable', ARM),
+            ('2.0', ARM),
+            ('binary:2.0', ARM),
+            ('1.6', INTEL),
+            ('binary:1.6', INTEL),
+            ('1.4.0', INTEL),
+            ('nightly:https://github.com/nim-lang/nightlies/releases/tag/2025-05-13-version-2-2-9cfc3399bc9b7538941ba59803c998cc8fc7a653', ARM),
+            ('sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz', INTEL),
+            ('release:1.2.8', INTEL),
+            ('git:f7145dd26efeeeb6eeae6fff649db244d81b212d', ARM),
+            ('git:v1.4.8', INTEL),
+            ('git:v1.6.10', INTEL),
+            ('git:f7145dd26efeeeb6eeae6fff649db244d81b212d https://github.com/iffy/Nim.git', ARM),
+            ('0.20.0', INTEL),
           ]
           with io.open('nightlies.txt', 'r') as fh:
             to_pick = {}
@@ -76,14 +81,24 @@ jobs:
                 (maj, min, bug) = ver.split('.')
                 # get the latest MAJ.MIN.X version
                 to_pick[(maj,min)] = ver
-            for key in to_pick:
-              tag = 'binary:' + to_pick[key]
-              if tag not in versions:
-                versions.append(tag)
-          print("NIMVERSIONS=" + json.dumps(versions))
+            for (maj, min), ver in to_pick.items():
+              tag = 'binary:' + ver
+              if tag not in [v for v, _ in versions]:
+                versions.append((tag, ARM if int(maj) >= 2 else INTEL))
+          skip_linux = {
+            'git:v1.4.8',
+            'sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz',
+          }
+          include = []
+          for nim, mac in versions:
+            if nim not in skip_linux:
+              include.append({'os': 'ubuntu-latest', 'nim': nim})
+            include.append({'os': mac, 'nim': nim})
+            include.append({'os': 'windows-latest', 'nim': nim})
+          print("MATRIX=" + json.dumps({'include': include}))
           EOF
           python script.py >> $GITHUB_OUTPUT
-      - run: echo "${{ steps.set-nim-versions.outputs.NIMVERSIONS }}"
+      - run: echo '${{ steps.set-nim-versions.outputs.MATRIX }}'
 
   specific:
     needs:
@@ -93,17 +108,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     strategy:
       fail-fast: true
-      matrix:
-        os: 
-        - ubuntu-latest
-        - macOS-latest
-        - windows-latest
-        nim: ${{ fromJson(needs.matrix_prep.outputs.nimversions) }}
-        exclude:
-        - os: ubuntu-latest
-          nim: git:v1.4.8
-        - os: ubuntu-latest
-          nim: sourcetar:https://github.com/nim-lang/nightlies/releases/download/latest-version-1-4/source.tar.xz
+      matrix: ${{ fromJson(needs.matrix_prep.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v1
       - uses: ./
