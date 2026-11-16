@@ -1,3 +1,7 @@
+# v5.1.3 - 2026-11-16
+
+- **FIX:** Add Nim 2.4.2
+
 # v5.1.2 - 2026-11-02
 
 - **FIX:** CI works again on macOS and Windows
